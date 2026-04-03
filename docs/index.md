@@ -1,11 +1,17 @@
 ---
-sidebar_position: 0
 slug: /
+title: DMP Help Center
 ---
 
-# Welcome to DMP Help Center
+# DMP Help Center
 
-This documentation covers two main areas:
+Welcome to the DMP Platform Help Center.
 
-- **[Admin Manual](admin-manual/)** — Configuration and management for platform administrators
-- **[Developer Manual](developer-manual/)** — Integration guide for developers
+## Documentation
+
+- **Admin User Manual** — For platform owners and administrators
+- **Developer Manual** — For hardware developers
+
+---
+
+*Last updated: 2026-04-03*

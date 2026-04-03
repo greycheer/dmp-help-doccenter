@@ -11,8 +11,10 @@ const config = {
   organizationName: 'greycheer',
   projectName: 'dmp-help-doccenter',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
-  i18n: { defaultLocale: 'en', locales: ['en'] },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
   presets: [
     [
       'classic',
@@ -21,29 +23,65 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
+          // Docs only mode
+          editUrl: 'https://github.com/greycheer/dmp-help-doccenter/tree/main/',
         },
         blog: false,
-        theme: { customCss: require.resolve('./src/css/custom.css') },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
       }),
     ],
   ],
-  themeConfig: {
-    navbar: {
-      title: 'DMP Help Center',
-      items: [
-        { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Docs' },
-        { href: 'https://github.com/greycheer/dmp-help-doccenter', label: 'GitHub', position: 'right' },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      copyright: 'Copyright © ' + new Date().getFullYear() + ' DMP Platform.',
-    },
-    prism: {
-      theme: themes.github,
-      darkTheme: themes.dracula,
-    },
-  },
+  plugins: [
+    // Search plugin for client-side search
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      },
+    ],
+  ],
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: 'DMP Help Center',
+        logo: {
+          alt: 'DMP Logo',
+          src: 'img/logo.svg',
+        },
+        items: [
+          {
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'left',
+            label: 'Docs',
+          },
+          {
+            href: 'https://github.com/greycheer/dmp-help-doccenter',
+            label: 'GitHub',
+            position: 'right',
+          },
+        ],
+      },
+      footer: {
+        style: 'dark',
+        copyright: `Copyright © ${new Date().getFullYear()} DMP Platform. Built with Docusaurus.`,
+      },
+      prism: {
+        theme: themes.github,
+        darkTheme: themes.dracula,
+      },
+      // Table of contents defaults
+      tableOfContents: {
+        minHeadingLevel: 2,
+        maxHeadingLevel: 4,
+      },
+    }),
 };
 
 module.exports = config;
