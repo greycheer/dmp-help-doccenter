@@ -1,17 +1,21 @@
 ---
 sidebar_position: 1
 title: "Introduction"
+toc: true
+toc_max_heading_level: 6
+toc_min_heading_level: 3
 ---
 
-## Introduction
-
 ### 1.1 Purpose of the Manual
+
 
 ###  
 
 ### 1.2 Platform Overview 
 
+
 ### 1.3 Terminology Explanation 
+
 
 ### 1.4 Quick Guide to Access to DMP Platform
 
