@@ -1,11 +1,13 @@
 ---
 sidebar_position: 3
 title: "Appendix"
+toc: true
+toc_max_heading_level: 6
+toc_min_heading_level: 3
 ---
 
-## Appendix
-
 ### 3.1 FAQ
+
 
 - Wi-Fi Products
 -  Configure two Configuration:Bluetooth and Wi-Fi Configuration
@@ -23,6 +25,7 @@ title: "Appendix"
 
 - Scan the device body code as the primary binding method
 - LAN scanning and ID addition as fallback options
+
 
 ###  
 
