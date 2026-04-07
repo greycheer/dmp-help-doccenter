@@ -21,9 +21,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: '/',
+          routeBasePath: '/docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Docs only mode
           editUrl: 'https://github.com/greycheer/dmp-help-doccenter/tree/main/',
         },
         blog: false,
@@ -32,6 +31,9 @@ const config = {
         },
       }),
     ],
+  ],
+  clientModules: [
+    require.resolve('./src/clientModules/imageLightbox.js'),
   ],
   plugins: [
     // Search plugin for client-side search
@@ -48,6 +50,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
       navbar: {
         title: 'DMP Help Center',
         logo: {

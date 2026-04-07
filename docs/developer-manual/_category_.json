@@ -1,6 +1,7 @@
 {
-  "label": "DMP Platform Manual for Developer",
+  "label": "For Developer",
   "link": {
-    "type": "generated-index"
+    "type": "generated-index",
+    "title": "DMP Platform Manual for Developer"
   }
 }
