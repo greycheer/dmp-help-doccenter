@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMP Help Center — Homepage Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #3b82f6;
+      --primary-50: #eff6ff;
+      --primary-100: #dbeafe;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--slate-700); line-height: 1.7; background: #fff; }
+    
+    /* ─── Navbar ─── */
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px; display: flex; align-items: center; padding: 0 32px; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--slate-200); transition: all 0.3s ease; }
+    .navbar.scrolled { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .navbar-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .navbar-logo { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; }
+    .navbar-title { font-size: 17px; font-weight: 700; color: var(--slate-900); }
+    .navbar-links { display: flex; align-items: center; gap: 8px; }
+    .navbar-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--slate-600); padding: 8px 14px; border-radius: 8px; transition: all 0.15s ease; }
+    .navbar-links a:hover { color: var(--slate-900); background: var(--slate-100); }
+    .navbar-links a.active { color: var(--primary); background: var(--primary-50); }
+    .navbar-search { position: relative; margin-left: 16px; }
+    .navbar-search input { padding: 8px 14px 8px 36px; border: 1px solid var(--slate-200); border-radius: 8px; font-size: 14px; font-family: inherit; width: 220px; background: var(--slate-50); color: var(--slate-800); transition: all 0.2s ease; outline: none; }
+    .navbar-search input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); background: #fff; width: 280px; }
+    .navbar-search .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--slate-400); font-size: 14px; }
+    .navbar-search .kbd { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: var(--slate-200); color: var(--slate-500); font-size: 11px; padding: 1px 6px; border-radius: 4px; font-family: inherit; }
+
+    /* ─── Hero ─── */
+    .hero { padding: 140px 32px 80px; text-align: center; background: linear-gradient(180deg, var(--slate-50) 0%, #fff 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%); pointer-events: none; }
+    .hero-content { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-50); color: var(--primary); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; border: 1px solid var(--primary-100); }
+    .hero h1 { font-size: 48px; font-weight: 800; color: var(--slate-900); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+    .hero h1 span { background: linear-gradient(135deg, var(--primary), #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 18px; color: var(--slate-500); line-height: 1.7; max-width: 560px; margin: 0 auto 36px; }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,99,235,0.3); }
+    .btn-secondary { background: #fff; color: var(--slate-700); border: 1px solid var(--slate-200); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .btn-secondary:hover { border-color: var(--slate-300); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+    /* ─── Quick Start Cards ─── */
+    .quick-start { padding: 80px 32px; background: #fff; }
+    .quick-start-inner { max-width: 960px; margin: 0 auto; }
+    .quick-start-inner > h2 { text-align: center; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--slate-400); margin-bottom: 8px; }
+    .quick-start-inner > p { text-align: center; font-size: 13px; color: var(--slate-400); margin-bottom: 32px; }
+    .quick-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .quick-card { display: flex; gap: 20px; padding: 28px; border: 1px solid var(--slate-200); border-radius: 14px; background: #fff; text-decoration: none; transition: all 0.2s ease; cursor: pointer; }
+    .quick-card:hover { border-color: var(--primary); box-shadow: 0 8px 24px rgba(37,99,235,0.08); transform: translateY(-2px); }
+    .quick-card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .quick-card-icon.admin { background: #dbeafe; }
+    .quick-card-icon.dev { background: #f3e8ff; }
+    .quick-card h3 { font-size: 17px; font-weight: 700; color: var(--slate-900); margin-bottom: 4px; }
+    .quick-card p { font-size: 14px; color: var(--slate-500); line-height: 1.5; }
+    .quick-card .arrow { margin-left: auto; align-self: center; color: var(--slate-300); font-size: 20px; transition: all 0.2s; }
+    .quick-card:hover .arrow { color: var(--primary); transform: translateX(4px); }
+
+    /* ─── Features ─── */
+    .features { padding: 80px 32px; background: var(--slate-50); }
+    .features-inner { max-width: 960px; margin: 0 auto; }
+    .features-inner > h2 { text-align: center; font-size: 32px; font-weight: 700; color: var(--slate-900); letter-spacing: -0.5px; margin-bottom: 8px; }
+    .features-inner > .subtitle { text-align: center; font-size: 16px; color: var(--slate-500); margin-bottom: 48px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feature-card { padding: 28px; background: #fff; border: 1px solid var(--slate-200); border-radius: 14px; transition: all 0.2s ease; }
+    .feature-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .feature-icon { font-size: 32px; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 16px; font-weight: 700; color: var(--slate-900); margin-bottom: 6px; }
+    .feature-card p { font-size: 14px; color: var(--slate-500); line-height: 1.6; }
+
+    /* ─── CTA ─── */
+    .cta { padding: 80px 32px; text-align: center; }
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta h2 { font-size: 28px; font-weight: 700; color: var(--slate-900); margin-bottom: 12px; letter-spacing: -0.5px; }
+    .cta p { font-size: 16px; color: var(--slate-500); margin-bottom: 28px; }
+
+    /* ─── Footer ─── */
+    .footer { padding: 32px; border-top: 1px solid var(--slate-200); text-align: center; }
+    .footer p { font-size: 13px; color: var(--slate-400); }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .navbar { padding: 0 16px; }
+      .navbar-links a { display: none; }
+      .navbar-search { display: none; }
+      .hero { padding: 120px 20px 60px; }
+      .hero h1 { font-size: 32px; letter-spacing: -1px; }
+      .hero p { font-size: 16px; }
+      .quick-cards { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .features, .quick-start, .cta { padding: 48px 20px; }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Prototype annotation */
+    .proto-note { background: #fef3c7; border-left: 3px solid #f59e0b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 24px 0; font-size: 13px; color: #92400e; }
+    .proto-note strong { display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="navbar-brand">
+        <div class="navbar-logo">D</div>
+        <span class="navbar-title">DMP Help Center</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="navbar-links">
+          <a href="#" class="active">Docs</a>
+          <a href="#">API Reference</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div class="navbar-search">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Search docs..." />
+          <span class="kbd">⌘K</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">📘 Documentation v2.0</div>
+      <h1>DMP Platform<br><span>Help Center</span></h1>
+      <p>Everything you need to manage devices, develop products, and integrate with the DMP platform — all in one place.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Get Started →</a>
+        <a href="#" class="btn btn-secondary">📖 Admin Manual</a>
+        <a href="#" class="btn btn-secondary">💻 Developer Manual</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start Cards -->
+  <section class="quick-start">
+    <div class="quick-start-inner">
+      <h2>Get Started</h2>
+      <p>Choose the right manual for your role</p>
+      <div class="quick-cards">
+        <div class="quick-card">
+          <div class="quick-card-icon admin">🛡️</div>
+          <div style="flex:1">
+            <h3>Admin User Manual</h3>
+            <p>For platform owners and administrators — account management, product lifecycle, and operational workflows.</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="quick-card">
+          <div class="quick-card-icon dev">⚙️</div>
+          <div style="flex:1">
+            <h3>Developer Manual</h3>
+            <p>For hardware developers — device integration, firmware management, and debugging tools.</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="features-inner">
+      <h2>Platform Capabilities</h2>
+      <p class="subtitle">A comprehensive toolkit for IoT device management</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Multi-Protocol Connection</h3>
+          <p>Support for Wi-Fi, Bluetooth, Zigbee, and Matter protocols for seamless device integration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Product Lifecycle</h3>
+          <p>Complete product management from creation and configuration to mass production deployment.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Role-Based Access</h3>
+          <p>Granular permission control with admin, developer, and operator roles for secure collaboration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📡</div>
+          <h3>OTA Firmware Updates</h3>
+          <p>Reliable over-the-air firmware upgrade with version tracking, rollback, and batch management.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Device Monitoring</h3>
+          <p>Real-time status tracking, event logging, and data visualization for connected devices.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>Debugging Tools</h3>
+          <p>Interactive device logs, remote shell access, and diagnostic utilities for efficient troubleshooting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-inner">
+      <h2>Ready to get started?</h2>
+      <p>Jump into the documentation and start building on the DMP platform today.</p>
+      <a href="#" class="btn btn-primary">Read the Docs →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Copyright © 2026 DMP Platform. Built with <a href="https://docusaurus.io" target="_blank">Docusaurus</a>. Content synced from Feishu.</p>
+  </footer>
+
+  <!-- Scroll effect -->
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
+</body>
+</html>
