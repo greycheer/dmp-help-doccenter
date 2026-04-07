@@ -249,8 +249,19 @@ function blocksToMarkdown(blocks, imgBaseRelPath) {
     }
   }
 
-  // [4.5g] Removed < > escaping — Docusaurus MDX handles bare < > correctly
-  const md = lines.join('\n');
+  // [4.5g] Escape bare < that could trigger MDX JSX parse errors.
+  // MDX treats < as JSX tag start. We escape < only when it's NOT followed
+  // by a valid tag name character (letter, /, !, ?).
+  // We skip code fences and admonition markers entirely.
+  const rawMd = lines.join('\n');
+  const mdLines = rawMd.split('\n');
+  const escapedLines = mdLines.map(line => {
+    // Skip code fences, admonition markers, table dividers
+    if (/^(```|:::)/.test(line)) return line;
+    // Escape < that is NOT followed by a letter, /, !, ? (i.e., not a valid tag start)
+    return line.replace(/<(?![a-zA-Z\/\!?\#])/g, '\\<');
+  });
+  const md = escapedLines.join('\n');
   return { markdown: md, imageTokens };
 }
 
