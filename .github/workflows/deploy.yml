@@ -24,6 +24,11 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+      - name: Sync from Feishu
+        run: npm run sync
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
