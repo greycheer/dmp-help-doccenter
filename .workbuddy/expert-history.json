@@ -3,15 +3,33 @@
   "sessions": {
     "bfa3ec9d19f648819b7610f7e137d6a7": [
       {
-        "expertId": "FrontendDeveloper",
-        "name": "Paul",
-        "profession": "前端开发工程师",
-        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/02-Engineering/FrontendDeveloper/FrontendDeveloper.png",
-        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/02-Engineering/FrontendDeveloper/FrontendDeveloper_zh.md",
-        "usedAt": 1775205160232,
+        "expertId": "SeniorDeveloper",
+        "name": "Will",
+        "profession": "高级开发工程师",
+        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/02-Engineering/SeniorDeveloper/SeniorDeveloper.png",
+        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/02-Engineering/SeniorDeveloper/SeniorDeveloper_zh.md",
+        "usedAt": 1775532289529,
         "industryId": "02-Engineering"
+      },
+      {
+        "expertId": "RapidPrototypingEngineer",
+        "name": "Uma",
+        "profession": "快速原型工程师",
+        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/02-Engineering/RapidPrototypingEngineer/RapidPrototypingEngineer.png",
+        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/02-Engineering/RapidPrototypingEngineer/RapidPrototypingEngineer_zh.md",
+        "usedAt": 1775525979355,
+        "industryId": "02-Engineering"
+      },
+      {
+        "expertId": "UiDesigner",
+        "name": "Sam",
+        "profession": "UI设计师",
+        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/01-Design/UiDesigner/UiDesigner.png",
+        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/01-Design/UiDesigner/UiDesigner_zh.md",
+        "usedAt": 1775525090836,
+        "industryId": "all"
       }
     ]
   },
-  "lastUpdated": 1775205238461
+  "lastUpdated": 1775538347806
 }

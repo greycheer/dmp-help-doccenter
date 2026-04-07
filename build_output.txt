@@ -1,0 +1,8 @@
+[INFO] [en] Creating an optimized production build...
+Warn: `blogDir` doesn't exist: "C:\Users\babya\WorkBuddy\20260403161355\blog".
+[90m[[90mwebpackbar[90m][39m [36mℹ[39m Compiling Client
+[90m[[90mwebpackbar[90m][39m [36mℹ[39m Compiling Server
+[90m[[90mwebpackbar[90m][39m [32m✔[39m Server: Compiled successfully in 674.00ms
+[90m[[90mwebpackbar[90m][39m [32m✔[39m Client: Compiled successfully in 1.02s
+[SUCCESS] Generated static files in "build".
+[INFO] Use `npm run serve` command to test your build locally.
