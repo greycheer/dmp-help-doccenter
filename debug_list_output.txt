@@ -1,0 +1,547 @@
+Fetching token...
+Fetching blocks...
+
+Total blocks: 541, Top-level: 424
+
+=== First 20 headings ===
+0: [4] ""
+  Full block: {
+  "block_id": "EQAFdiF0foSDU9xYXvvcJkvUnTc",
+  "block_type": 4,
+  "heading2": {
+    "elements": [
+      {
+        "text_run": {
+          "content": " Introduction",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2RoalLFxCHnbcPX
+1: [5] ""
+  Full block: {
+  "block_id": "M4TVdJNZKoMSGHxERWHcilgunDc",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "1.1 Purpose of the Manual",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2Ro
+4: [5] ""
+  Full block: {
+  "block_id": "H397dv4p9ohhPOx4rbBckypfnrf",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "1.2 Platform Overview ",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2RoalL
+6: [5] ""
+  Full block: {
+  "block_id": "R4efdXWb5oMxZpxajCCcdjPHn2d",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "1.3 Terminology Explanation ",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX
+9: [5] ""
+  Full block: {
+  "block_id": "BaOlda8W6oAyCfxQ3hLcz6SInTh",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "1.4 Quick Guide",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2RoalLFxCHnbc
+24: [4] ""
+  Full block: {
+  "block_id": "A1LXd5qzlorTJMxm2cLchVNEngb",
+  "block_type": 4,
+  "heading2": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "Product Development on DMP Platform",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "
+25: [5] ""
+  Full block: {
+  "block_id": "MEO4dduCTo3l8nxSQq8cHg7enG2",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.0 How to Access to the Platform",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9
+28: [5] ""
+  Full block: {
+  "block_id": "XpJodcsG0ovHtLxcW9acH13ynGc",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.1 Platform Account and Role Management",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_i
+29: [6] ""
+  Full block: {
+  "block_id": "SYvrdSZWRoWcKExAsu2c6E9Tncg",
+  "block_type": 6,
+  "heading4": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.1.1 Section Overview",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2RoalL
+33: [6] ""
+  Full block: {
+  "block_id": "VyEAdq2FQoefyfx4fvLcDmAanbg",
+  "block_type": 6,
+  "heading4": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.1.2 Account Information Collection",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": 
+37: [6] ""
+  Full block: {
+  "block_id": "Pzu2dqp6toEDVExCc5PcNPJSnnc",
+  "block_type": 6,
+  "heading4": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.1.3 Create a New Account",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2R
+52: [6] ""
+  Full block: {
+  "block_id": "UQrOdBSIRoyxDOxHfMoc4yNMnTf",
+  "block_type": 6,
+  "heading4": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.1.4 Managing Role Permissions",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yT
+64: [5] ""
+  Full block: {
+  "block_id": "DODudzH1moVyACxPUGBcw0V0nWd",
+  "block_type": 5,
+  "heading3": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2 Product Development Management",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P
+65: [6] ""
+  Full block: {
+  "block_id": "VaPAdozFboTrNXxL8WJcIKkmnwh",
+  "block_type": 6,
+  "heading4": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2.1 Category Creation and Management",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id"
+66: [7] ""
+  Full block: {
+  "block_id": "FxoPdlAreoMwQXxBXVYcafO9n7f",
+  "block_type": 7,
+  "heading5": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2.1.1 Section Overview",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2Roa
+71: [7] ""
+  Full block: {
+  "block_id": "MCAjdbQM3oP3HxxaLoqc7dIJnUd",
+  "block_type": 7,
+  "heading5": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2.1.2 Operation Manual ",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2Ro
+84: [6] ""
+  Full block: {
+  "block_id": "ChsEd8ldrotZ2MxyOTTcFfC4n7g",
+  "block_type": 6,
+  "heading4": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2.2 Standard Function Management",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P
+85: [7] ""
+  Full block: {
+  "block_id": "PPeKddbdUo1sLfxg5qFcQbbLnMe",
+  "block_type": 7,
+  "heading5": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2.2.1 Section Overview",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2Roa
+91: [7] ""
+  Full block: {
+  "block_id": "LGawdUDcZogWtAxTEBgcctAqnLb",
+  "block_type": 7,
+  "heading5": {
+    "elements": [
+      {
+        "text_run": {
+          "content": "2.2.2.2 Operation Manual",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2Roa
+108: [4] ""
+  Full block: {
+  "block_id": "EKyCdchmWoGoHtxb1ntc4xwUnkb",
+  "block_type": 4,
+  "heading2": {
+    "elements": [
+      {
+        "text_run": {
+          "content": " ",
+          "text_element_style": {
+            "bold": false,
+            "inline_code": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          }
+        }
+      }
+    ],
+    "style": {
+      "align": 1,
+      "folded": false
+    }
+  },
+  "parent_id": "P9yTddX2RoalLFxCHnbcPX5QnOb"
+}
+
+=== All bullet blocks with "Account" in text ===
+
+Block 11: BULLET
+  text: If you are a platform operations administrator and need to manage platform accounts and assign permi
+  block_id: DHjgdqZ4XoPPLMxJuOhckPIgnGf
+  children count: 0
+
+Block 39: BULLET
+  text: Enter the account configuration page and click Add Account
+  block_id: HatzdDSyRoj1sKx2yB4cbquzn6b
+  children count: 0
+
+Block 43: BULLET
+  text: Enter the account information, select the assigned role(s) (multiple selections allowed), and click 
+  block_id: Fl0ZdChPoos11bxQkBec3HBanXe
+  children count: 0
+
+Block 48: BULLET
+  text: Provide the platform login page domain, login account, and password to the relevant personnel.
+  block_id: FGxTdJjTNoiZtQxvZf9cLYcenhb
+  children count: 0
+
+Block 50: BULLET
+  text: Account information can be managed on this page using the Edit, Reset Password, and Delete functions
+  block_id: VtumdPMZQor7HvxaBOCcZAsInzh
+  children count: 0
+
+=== Nested bullet blocks (parent_id != docToken) ===
+Found 27 nested bullets
+  0: parent=ClrsdDvwtoCAPlxhmiqc... text=Account Nickname — Fill in according to customer requirement
+  1: parent=ClrsdDvwtoCAPlxhmiqc... text=Verification Email — Used to receive verification codes. Not
+  2: parent=VjZ8dMqsGoF9QJxKpc9c... text=Company Name
+  3: parent=VjZ8dMqsGoF9QJxKpc9c... text=Company Address
+  4: parent=VjZ8dMqsGoF9QJxKpc9c... text=Company Contact Person
+  5: parent=VjZ8dMqsGoF9QJxKpc9c... text=Company Contact Details
+  6: parent=JOuZdidKooC4Icx4YfCc... text= Describe the real-time operating status of a device. Proper
+  7: parent=JOuZdidKooC4Icx4YfCc... text=Boolean (Bool): Binary values representing true or false
+  8: parent=JOuZdidKooC4Icx4YfCc... text=Numeric (Value): Integer values that support arithmetic oper
+  9: parent=JOuZdidKooC4Icx4YfCc... text=String: Non-numeric text data, does not support arithmetic o

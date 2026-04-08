@@ -8,7 +8,7 @@
         "profession": "高级开发工程师",
         "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/02-Engineering/SeniorDeveloper/SeniorDeveloper.png",
         "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/02-Engineering/SeniorDeveloper/SeniorDeveloper_zh.md",
-        "usedAt": 1775532289529,
+        "usedAt": 1775640439590,
         "industryId": "02-Engineering"
       },
       {
@@ -31,5 +31,5 @@
       }
     ]
   },
-  "lastUpdated": 1775538347806
+  "lastUpdated": 1775640442574
 }

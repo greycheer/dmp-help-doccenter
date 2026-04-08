@@ -30,4 +30,4 @@ If you find the content of this manual extensive and are unsure where to start, 
 
 - If you need to understand how to create products, configure firmware upgrades, or set up device settings menus:
 
- → Please contact the platform liaison and request the **[DMP Platform Developer Guide](../../developer-manual/introduction/quick-guide-to-access-to-dmp-platform)**
+ → Please contact the platform liaison and request the DMP Platform Developer Guide
