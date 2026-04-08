@@ -1,5 +1,5 @@
 /**
- * pipeline.js — DMP Help Center sync pipeline (v2.2)
+ * pipeline.js — DMP Help Center sync pipeline (v2.4)
  * Feishu doc → heading tree → multi-level directory + files
  * 
  * Changes from v1:
@@ -17,6 +17,16 @@
  *   - Quick Guide post-processing: auto-link section names to doc pages
  *   - fetchNewTableAsMarkdown(): block_type 31 table support
  *   - top-level block filtering by parent_id
+ * 
+ * Changes in v2.3:
+ *   - Fixed buildHeadingTree(): use block index to match heading with node
+ *     instead of title matching, preventing content misplacement when duplicate
+ *     titles exist (e.g., multiple "Section Overview" headings)
+ * 
+ * Changes in v2.4:
+ *   - Fixed nested list rendering: bullet/ordered blocks with children are now
+ *     recursively rendered with proper indentation. Previously nested list items
+ *     were lost because only top-level blocks were processed.
  */
 const fs = require('fs');
 const path = require('path');
@@ -379,9 +389,91 @@ function enhanceTextWithImages(text) {
 
 // ── Block → Markdown (enhanced) ──
 
-async function blocksToMarkdown(blocks, imgBaseRelPath, token, docToken) {
+/**
+ * Recursively render nested list items (bullet/ordered with children).
+ * Fetches children via API if not already in allBlocks map.
+ */
+async function renderNestedList(block, allBlocksMap, token, docToken, depth, imgBaseRelPath, imageTokens) {
+  const lines = [];
+  const btNum = block.block_type;
+  const typeStr = BT[btNum];
+  const data = block[typeStr] || {};
+  const elements = data.elements || [];
+  const indent = '  '.repeat(depth);
+  
+  if (typeStr === 'bullet') {
+    lines.push(indent + '- ' + extractRichText(elements));
+  } else if (typeStr === 'ordered') {
+    const seq = (data.style && data.style.sequence) || '1';
+    lines.push(indent + seq + '. ' + extractRichText(elements));
+  }
+  
+  // Find children of this block
+  let children = [];
+  
+  // First check if children are in allBlocksMap (pre-fetched)
+  for (const [id, b] of allBlocksMap) {
+    if (b.parent_id === block.block_id) {
+      children.push(b);
+    }
+  }
+  
+  // If no children found in map, fetch via API
+  if (children.length === 0 && token && docToken) {
+    try {
+      const url = `https://open.feishu.cn/open-apis/docx/v1/documents/${docToken}/blocks/${block.block_id}/children?document_revision_id=-1&page_size=100`;
+      const resp = await httpRequest('GET', url, { 'Authorization': 'Bearer ' + token });
+      if (resp.code === 0 && resp.data && resp.data.items) {
+        children = resp.data.items;
+        // Add to map for future use
+        for (const child of children) {
+          allBlocksMap.set(child.block_id, child);
+        }
+      }
+    } catch (e) {
+      // Silently fail, no children
+    }
+  }
+  
+  // Sort children by their position (if available) or keep API order
+  children.sort((a, b) => {
+    // Use block_id as fallback for stable sorting
+    return a.block_id.localeCompare(b.block_id);
+  });
+  
+  // Recursively render children
+  for (const child of children) {
+    const childType = BT[child.block_type];
+    if (childType === 'bullet' || childType === 'ordered') {
+      const childLines = await renderNestedList(child, allBlocksMap, token, docToken, depth + 1, imgBaseRelPath, imageTokens);
+      lines.push(...childLines);
+    } else if (childType === 'text') {
+      const text = extractRichText(child.text?.elements || []);
+      if (text.trim()) {
+        lines.push(indent + '  ' + text);
+      }
+    } else if (childType === 'image' && child.image?.token) {
+      lines.push(indent + '  ![image](' + imgBaseRelPath + '/' + child.image.token + '.png)');
+      imageTokens.push(child.image.token);
+    }
+  }
+  
+  return lines;
+}
+
+async function blocksToMarkdown(blocks, imgBaseRelPath, token, docToken, allBlocks = []) {
   const lines = [];
   const imageTokens = [];
+  
+  // Build a map of all blocks for quick lookup
+  const allBlocksMap = new Map();
+  for (const b of allBlocks) {
+    allBlocksMap.set(b.block_id, b);
+  }
+  // Also add current blocks to map
+  for (const b of blocks) {
+    allBlocksMap.set(b.block_id, b);
+  }
 
   for (const block of blocks) {
     const btNum = block.block_type;
@@ -413,18 +505,10 @@ async function blocksToMarkdown(blocks, imgBaseRelPath, token, docToken) {
       // [4.5b] Detect bare image URLs
       text = enhanceTextWithImages(text);
       if (text.trim()) { lines.push(text); lines.push(''); }
-    } else if (typeStr === 'bullet') {
-      // [4.5d] List depth support
-      const depth = (data.depth != null) ? data.depth : 0;
-      const indent = '  '.repeat(depth);
-      lines.push(indent + '- ' + extractRichText(elements));
-      lines.push('');
-    } else if (typeStr === 'ordered') {
-      // [4.5d] List depth support
-      const depth = (data.depth != null) ? data.depth : 0;
-      const indent = '  '.repeat(depth);
-      const seq = (data.style && data.style.sequence) || '1';
-      lines.push(indent + seq + '. ' + extractRichText(elements));
+    } else if (typeStr === 'bullet' || typeStr === 'ordered') {
+      // [v2.3] Recursively render nested list items
+      const listLines = await renderNestedList(block, allBlocksMap, token, docToken, 0, imgBaseRelPath, imageTokens);
+      lines.push(...listLines);
       lines.push('');
     } else if (typeStr === 'table') {
       // Normal table (block_type 22): inline cells in doc block
@@ -589,12 +673,17 @@ function slugify(text) {
  * Start level: H2 (level 2). Only H2+ blocks become tree nodes.
  * Uses a stack-based approach for level-skip tolerance.
  * Empty headings are silently skipped.
+ * 
+ * Fix v2.3: Use block index to match heading with node, avoiding duplicate title issues.
  */
 function buildHeadingTree(blocks, startLevel) {
   const root = { level: startLevel - 1, title: '', slug: '', blocks: [], children: [] };
   const stack = [root]; // stack of ancestor nodes
+  const headingIndexToNode = new Map(); // block index -> node mapping
 
-  for (const block of blocks) {
+  // First pass: build tree structure and record heading->node mapping
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i];
     const btNum = block.block_type;
     const typeStr = BT[btNum];
     if (!typeStr || !typeStr.startsWith('heading')) continue;
@@ -629,49 +718,36 @@ function buildHeadingTree(blocks, startLevel) {
     // Attach to current top of stack (level-skip tolerance: even if H3→H5, attach to H3)
     stack[stack.length - 1].children.push(node);
     stack.push(node);
+    
+    // Record mapping from block index to node
+    headingIndexToNode.set(i, node);
   }
 
-  // Distribute non-heading blocks to the correct node
-  const nodeList = []; // flat list of all nodes in order
-  function collectNodes(node) {
-    for (const child of node.children) {
-      nodeList.push(child);
-      collectNodes(child);
-    }
-  }
-  collectNodes(root);
-
-  let currentLeaf = root; // block container
-  for (const block of blocks) {
+  // Second pass: distribute non-heading blocks to the correct node
+  // Use block index to find the correct node, avoiding duplicate title issues
+  let currentNode = root;
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i];
     const btNum = block.block_type;
     const typeStr = BT[btNum];
 
-    // If this is a heading, move currentLeaf to this node
+    // If this is a heading, move currentNode to this heading's node
     if (typeStr && typeStr.startsWith('heading')) {
       const level = parseInt(typeStr.replace('heading', ''));
       if (level >= startLevel) {
-        const data = block[typeStr];
-        if (data) {
-          const headingText = extractRichText((data.elements || [])).trim();
-          if (headingText) {
-            const cleanHeading = stripHeadingNumber(headingText);
-            if (cleanHeading) {
-              const match = nodeList.find(n => n.title === cleanHeading);
-              if (match) currentLeaf = match;
-            }
-          }
-        }
+        const node = headingIndexToNode.get(i);
+        if (node) currentNode = node;
       }
       continue;
     }
 
     // Collect image tokens from image blocks for syncImages
     if (typeStr === 'image' && block.image && block.image.token) {
-      currentLeaf.blocks.push(block);
+      currentNode.blocks.push(block);
     } else if (btNum === 1 || btNum === 32) {
       // skip page block and table_cell (handled by table_new parent)
     } else {
-      currentLeaf.blocks.push(block);
+      currentNode.blocks.push(block);
     }
   }
 
@@ -698,7 +774,7 @@ function makeCategoryJson(label, position) {
  * - Non-leaf nodes → subdirectory + _category_.json
  * - Leaf nodes → .md file with frontmatter
  */
-async function writeTreeToDocs(node, outputDir, imgBaseRelPath, positionPrefix, token, docToken) {
+async function writeTreeToDocs(node, outputDir, imgBaseRelPath, positionPrefix, token, docToken, allBlocks) {
   if (!node.children.length) return;
 
   for (let idx = 0; idx < node.children.length; idx++) {
@@ -720,10 +796,10 @@ async function writeTreeToDocs(node, outputDir, imgBaseRelPath, positionPrefix, 
       console.log('  DIR:  ' + path.relative(DOCS_DIR, dirPath) + '/ (' + child.title + ')');
 
       // Recurse
-      await writeTreeToDocs(child, dirPath, imgBaseRelPath, position, token, docToken);
+      await writeTreeToDocs(child, dirPath, imgBaseRelPath, position, token, docToken, allBlocks);
     } else {
       // Leaf: create .md file
-      const result = await blocksToMarkdown(child.blocks, imgBaseRelPath, token, docToken);
+      const result = await blocksToMarkdown(child.blocks, imgBaseRelPath, token, docToken, allBlocks);
       const frontmatter = makeFrontmatter(child.title, parseInt(position, 10));
       const content = frontmatter + '\n\n' + result.markdown.trim() + '\n';
       const filePath = path.join(outputDir, paddedIdx + '-' + child.slug + '.md');
@@ -964,8 +1040,8 @@ async function main() {
     // Reset image token collector
     _collectedImageTokens = [];
 
-    // Recursively write docs
-    await writeTreeToDocs(tree, docDir, imgBaseRelPath, '', token, doc.docToken);
+    // Recursively write docs (pass all blocks for nested list rendering)
+    await writeTreeToDocs(tree, docDir, imgBaseRelPath, '', token, doc.docToken, blocks);
 
     console.log('  Total image refs: ' + _collectedImageTokens.length);
 

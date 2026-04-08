@@ -1,0 +1,96 @@
+DMP Help Center Pipeline v2
+Time: 2026/4/8 17:30:27
+
+Getting Feishu Token...
+Token OK
+
+━━━ Syncing: DMP Platform Manual for Admin User ━━━
+  Blocks fetched: 541
+  Top-level blocks: 424
+  H2 sections: 3
+  DIR:  admin-manual\01-introduction/ (Introduction)
+  FILE: admin-manual\01-introduction\01-purpose-of-the-manual.md (Purpose of the Manual)
+  FILE: admin-manual\01-introduction\02-platform-overview.md (Platform Overview)
+  FILE: admin-manual\01-introduction\03-terminology-explanation.md (Terminology Explanation)
+  FILE: admin-manual\01-introduction\04-quick-guide.md (Quick Guide)
+  DIR:  admin-manual\02-product-development-on-dmp-platform/ (Product Development on DMP Platform)
+  FILE: admin-manual\02-product-development-on-dmp-platform\01-how-to-access-to-the-platform.md (How to Access to the Platform)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\02-platform-account-and-role-management/ (Platform Account and Role Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\02-platform-account-and-role-management\01-section-overview.md (Section Overview)
+  FILE: admin-manual\02-product-development-on-dmp-platform\02-platform-account-and-role-management\02-account-information-collection.md (Account Information Collection)
+  FILE: admin-manual\02-product-development-on-dmp-platform\02-platform-account-and-role-management\03-create-a-new-account.md (Create a New Account)
+  FILE: admin-manual\02-product-development-on-dmp-platform\02-platform-account-and-role-management\04-managing-role-permissions.md (Managing Role Permissions)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\03-product-development-management/ (Product Development Management)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\03-product-development-management\01-category-creation-and-management/ (Category Creation and Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\01-category-creation-and-management\01-section-overview.md (Section Overview)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\01-category-creation-and-management\02-operation-manual.md (Operation Manual)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\03-product-development-management\02-standard-function-management/ (Standard Function Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\02-standard-function-management\01-section-overview.md (Section Overview)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\02-standard-function-management\02-operation-manual.md (Operation Manual)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\03-hardware-product-development.md (Hardware Product Development)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\03-product-development-management\04-five-tuple-generation/ (Five-Tuple Generation)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\04-five-tuple-generation\01-section-overview.md (Section Overview)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\04-five-tuple-generation\02-operation-manual.md (Operation Manual)
+  FILE: admin-manual\02-product-development-on-dmp-platform\03-product-development-management\05-hardware-product-firmware-upgrade.md (Hardware Product Firmware Upgrade)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management/ (APP Management)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management\01-create-app/ (Create APP)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\01-create-app\01-section-overview.md (Section Overview)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management\01-create-app\02-operation-manual/ (Operation Manual)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\01-create-app\02-operation-manual\01-preparations-before-creating-an-app.md (Preparations Before Creating an App)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\01-create-app\02-operation-manual\02-create-an-app.md (Create an APP)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\02-app-configuration.md (APP Configuration)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management\03-app-list-configuration/ (APP List Configuration)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\03-app-list-configuration\01-agreement-configuration.md (Agreement Configuration)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\03-app-list-configuration\02-push-certificate-configuration.md (Push Certificate Configuration)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management\04-network-provisioning-and-front-end-category-management/ (Network Provisioning and Front-End Category Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\04-network-provisioning-and-front-end-category-management\01-section-overview.md (Section Overview)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management\04-network-provisioning-and-front-end-category-management\02-operation-manual/ (Operation Manual)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\04-network-provisioning-and-front-end-category-management\02-operation-manual\01-provisioning-home-scan-device-qr-code.md (Provisioning Home – Scan Device QR Code)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\04-network-provisioning-and-front-end-category-management\02-operation-manual\02-provisioning-home-select-device-model.md (Provisioning Home – Select Device Model)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\04-app-management\05-cloud-storage-plan-configuration/ (Cloud Storage Plan Configuration)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\05-cloud-storage-plan-configuration\01-section-overview.md (Section Overview)
+  FILE: admin-manual\02-product-development-on-dmp-platform\04-app-management\05-cloud-storage-plan-configuration\02-operation-manual.md (Operation Manual)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management/ (Customer Relationship Management)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\01-knowledge-base-configuration/ (Knowledge Base Configuration)
+  FILE: admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\01-knowledge-base-configuration\01-section-overview.md (Section Overview)
+  FILE: admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\01-knowledge-base-configuration\02-operation-manual.md (Operation Manual)
+  FILE: admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\02-after-sales-management.md (After-sales Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\03-push-management.md (Push Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\04-cloud-storage-order-management.md (Cloud Storage Order Management)
+  DIR:  admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\05-device-management/ (Device Management)
+  FILE: admin-manual\02-product-development-on-dmp-platform\05-customer-relationship-management\05-device-management\01-unbind-device.md (Unbind Device)
+  DIR:  admin-manual\03-appendix/ (Appendix)
+  FILE: admin-manual\03-appendix\01-history.md (History)
+  Total image refs: 72
+  Syncing images...
+  Images: all up-to-date (72 total)
+
+━━━ Syncing: DMP Platform Manual for Developer ━━━
+  Blocks fetched: 237
+  Top-level blocks: 152
+  H2 sections: 3
+  DIR:  developer-manual\01-introduction/ (Introduction)
+  FILE: developer-manual\01-introduction\01-purpose-of-the-manual.md (Purpose of the Manual)
+  FILE: developer-manual\01-introduction\02-platform-overview.md (Platform Overview)
+  FILE: developer-manual\01-introduction\03-terminology-explanation.md (Terminology Explanation)
+  FILE: developer-manual\01-introduction\04-quick-guide-to-access-to-dmp-platform.md (Quick Guide to Access to DMP Platform)
+  DIR:  developer-manual\02-product-development-on-dmp-platform/ (Product Development on DMP Platform)
+  DIR:  developer-manual\02-product-development-on-dmp-platform\01-product-development/ (Product Development)
+  FILE: developer-manual\02-product-development-on-dmp-platform\01-product-development\01-product-firmware-management.md (Product Firmware Management)
+  DIR:  developer-manual\02-product-development-on-dmp-platform\02-device-interaction/ (Device Interaction)
+  FILE: developer-manual\02-product-development-on-dmp-platform\02-device-interaction\01-product-display.md (Product Display)
+  FILE: developer-manual\02-product-development-on-dmp-platform\02-device-interaction\02-functional-grouping.md (Functional Grouping)
+  FILE: developer-manual\02-product-development-on-dmp-platform\03-firmware-management.md (Firmware Management)
+  DIR:  developer-manual\03-appendix/ (Appendix)
+  FILE: developer-manual\03-appendix\01-faq.md (FAQ)
+  FILE: developer-manual\03-appendix\02-history.md (History)
+  Total image refs: 19
+  Syncing images...
+  Images: all up-to-date (19 total)
+
+Skipped: docs/index.md (custom React homepage exists)
+
+Post-processing Quick Guide links...
+  [admin] Quick Guide: 6 link(s) injected
+
+✅ Pipeline Complete!
