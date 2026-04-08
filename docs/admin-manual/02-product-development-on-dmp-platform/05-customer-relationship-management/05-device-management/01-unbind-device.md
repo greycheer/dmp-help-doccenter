@@ -11,10 +11,12 @@ Navigation Path: [Product] – [Device Manage]
 **The platform provides multiple methods for unbinding devices:**
 
 - When Unbinding a Small Number of Devices
+  - Enter the UUID(s) of the device(s) to be unbound (multiple UUIDs can be separated by commas " , "). Remove the restriction on the first activation time, then click Search.
 
 ![image](/img/admin-manual/Kr7NbvKrio0L00xYARxcT2FXnYb.png)
 
 - Based on the search results, you can:
+  - **Unbind directly on the current page**  (This function is only available when the device status is "Bound").
 
 ![image](/img/admin-manual/Bz3ebRMHnoyaDUxAwCicln9rnUe.png)
 
@@ -29,6 +31,7 @@ Navigation Path: [Product] – [Device Manage]
 ![image](/img/admin-manual/CDVobUBZco55Xtx6777c0HuTn3n.png)
 
 - When Unbinding a Large Number of Devices
+  - On the **[Device Manage]**  page, click **Batch Operations -> ****Device Unbinding**. (This method has no upper limit on the number of devices that can be processed.)
 
 ![image](/img/admin-manual/VH07bUP5bo3ZMVxHRlicTjClnRd.png)
 
