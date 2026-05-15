@@ -401,8 +401,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -410,11 +409,14 @@ body {
   visibility: hidden;
   transition: opacity 0.25s ease, visibility 0.25s ease;
   cursor: zoom-out;
+  pointer-events: none;
+  touch-action: manipulation;
 }
 
 .dmp-lightbox--active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .dmp-lightbox img {
@@ -427,6 +429,9 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   transform: scale(0.92);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .dmp-lightbox--active img {
