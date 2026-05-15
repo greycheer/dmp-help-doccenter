@@ -1,14 +1,9 @@
 /**
- * Image Lightbox — Client Module (v3)
+ * Image Lightbox — Client Module (v3.1)
  * 
- * v3 changes (fixing page freeze):
- * - Remove overflow:hidden on body (causes scroll position reset + layout thrash on GitHub Pages)
- * - Use inert attribute instead of pointer-events for isolation
- * - Remove CSS transition during open/close (GPU compositing issues on Chromium/GitHub Pages)
- * - Add explicit z-index layer management
- * - Use passive event listeners where possible
- * - Prevent Docusaurus route navigation interference via event stopPropagation
- * - Simplify: remove MutationObserver RAF debounce (was causing re-entry bugs)
+ * v3.1: plain overflow:hidden lock (no position:fixed scroll jump on close)
+ * v3: display:none/flex, remove CSS transitions, stopImmediatePropagation
+ * v2: backdrop-filter removal, pointer-events isolation (didn't fix freeze)
  */
 
 (function () {
@@ -17,7 +12,6 @@
   let overlay = null;
   let lbImg = null;
   let isOpen = false;
-  let scrollY = 0;
 
   function createOverlay() {
     overlay = document.createElement('div');
@@ -36,41 +30,24 @@
     if (isOpen) return;
     isOpen = true;
 
-    // Save scroll position
-    scrollY = window.scrollY;
-
-    // Set image source BEFORE making visible (prevents empty flash)
     lbImg.src = src;
     lbImg.alt = alt || '';
 
-    // Show overlay — no transition to avoid GPU freeze
     overlay.classList.add('dmp-lightbox--active');
 
-    // Lock body scroll without overflow:hidden (which causes layout thrash)
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
+    // Simple overflow lock — no position:fixed to avoid scroll jump on close
     document.body.style.overflow = 'hidden';
-
-    // Focus trap
-    lbImg.focus();
   }
 
   function closeLightbox() {
     if (!isOpen) return;
     isOpen = false;
 
-    // Hide immediately
     overlay.classList.remove('dmp-lightbox--active');
 
-    // Restore scroll — do this BEFORE removing fixed positioning
-    document.body.style.position = '';
-    document.body.style.width = '';
+    // Restore immediately — no scrollTo needed since scroll position is preserved
     document.body.style.overflow = '';
-    document.body.style.top = '';
-    window.scrollTo(0, scrollY);
 
-    // Clear image
     lbImg.src = '';
     lbImg.alt = '';
   }
