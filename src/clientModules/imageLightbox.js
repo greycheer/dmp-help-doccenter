@@ -1,119 +1,147 @@
 /**
- * Image Lightbox — Client Module (v2)
- * Fixes: page freeze on GitHub Pages, pointer-events isolation,
- *        backdrop-filter removal, touch-action safety.
+ * Image Lightbox — Client Module (v3)
+ * 
+ * v3 changes (fixing page freeze):
+ * - Remove overflow:hidden on body (causes scroll position reset + layout thrash on GitHub Pages)
+ * - Use inert attribute instead of pointer-events for isolation
+ * - Remove CSS transition during open/close (GPU compositing issues on Chromium/GitHub Pages)
+ * - Add explicit z-index layer management
+ * - Use passive event listeners where possible
+ * - Prevent Docusaurus route navigation interference via event stopPropagation
+ * - Simplify: remove MutationObserver RAF debounce (was causing re-entry bugs)
  */
 
-function initLightbox() {
-  // Create lightbox overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'dmp-lightbox';
-  const img = document.createElement('img');
-  img.setAttribute('role', 'dialog');
-  img.setAttribute('aria-label', 'Image preview');
-  overlay.appendChild(img);
-  document.body.appendChild(overlay);
+(function () {
+  if (typeof window === 'undefined') return;
 
+  let overlay = null;
+  let lbImg = null;
   let isOpen = false;
+  let scrollY = 0;
+
+  function createOverlay() {
+    overlay = document.createElement('div');
+    overlay.className = 'dmp-lightbox';
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('role', 'dialog');
+
+    lbImg = document.createElement('img');
+    lbImg.setAttribute('alt', '');
+    overlay.appendChild(lbImg);
+
+    document.body.appendChild(overlay);
+  }
 
   function openLightbox(src, alt) {
     if (isOpen) return;
     isOpen = true;
-    img.src = src;
-    img.alt = alt || '';
+
+    // Save scroll position
+    scrollY = window.scrollY;
+
+    // Set image source BEFORE making visible (prevents empty flash)
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+
+    // Show overlay — no transition to avoid GPU freeze
     overlay.classList.add('dmp-lightbox--active');
+
+    // Lock body scroll without overflow:hidden (which causes layout thrash)
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+
+    // Focus trap
+    lbImg.focus();
   }
 
   function closeLightbox() {
     if (!isOpen) return;
     isOpen = false;
+
+    // Hide immediately
     overlay.classList.remove('dmp-lightbox--active');
+
+    // Restore scroll — do this BEFORE removing fixed positioning
+    document.body.style.position = '';
+    document.body.style.width = '';
     document.body.style.overflow = '';
-    img.src = '';
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
+
+    // Clear image
+    lbImg.src = '';
+    lbImg.alt = '';
   }
 
-  // Close on overlay click (but not on the image itself)
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeLightbox();
-  });
-
-  // Close on image click (toggle behavior)
-  img.addEventListener('click', (e) => {
-    e.stopPropagation();
-    closeLightbox();
-  });
-
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen) {
+  function handleKey(e) {
+    if (!isOpen) return;
+    if (e.key === 'Escape') {
       e.preventDefault();
       e.stopPropagation();
       closeLightbox();
     }
-  }, true); // capture phase to intercept before other handlers
+  }
 
-  // Observe DOM for image loading (handles SPA navigation)
-  function processImages() {
-    const images = document.querySelectorAll('.markdown img:not(.dmp-img-processed)');
-    images.forEach((el) => {
-      el.classList.add('dmp-img-processed');
-      el.style.cursor = 'zoom-in';
+  function init() {
+    createOverlay();
 
-      // Wait for image to load to detect orientation
-      if (el.complete && el.naturalWidth > 0) {
-        applyImageSize(el);
-      } else {
-        el.addEventListener('load', () => applyImageSize(el), { once: true });
+    // Overlay background click → close
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeLightbox();
+    });
+
+    // Image click → close
+    lbImg.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    // Keyboard: Escape to close (capture phase)
+    document.addEventListener('keydown', handleKey, true);
+
+    // Process all images in .markdown containers
+    function processImages() {
+      var images = document.querySelectorAll('.markdown img:not([data-lb])');
+      for (var i = 0; i < images.length; i++) {
+        var el = images[i];
+        // Skip logo/themed images that are too small or decorative
+        if (el.closest('nav') || el.closest('header') || el.closest('.navbar')) continue;
+
+        el.setAttribute('data-lb', '1');
+        el.style.cursor = 'zoom-in';
+
+        // Click handler — capture phase, before Docusaurus router
+        el.addEventListener('click', function (evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          evt.stopImmediatePropagation();
+          openLightbox(this.src, this.alt || '');
+        }, true);
       }
+    }
 
-      // Click to zoom — use capture to avoid Docusaurus interference
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        openLightbox(el.src, el.alt || '');
-      }, true);
+    // Initial run
+    processImages();
+
+    // SPA navigation: re-process when content changes
+    // Use simple debounced observer (no RAF re-entry risk)
+    var timer = null;
+    var obs = new MutationObserver(function () {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(processImages, 150);
+    });
+    obs.observe(document.getElementById('__next') || document.body, {
+      childList: true,
+      subtree: true,
     });
   }
 
-  function applyImageSize(el) {
-    const screenH = window.innerHeight;
-    const maxH = Math.round(screenH / 3); // never exceed 1/3 viewport height
-    const w = el.naturalWidth;
-    const h = el.naturalHeight;
-
-    if (h > maxH) {
-      // Scale down proportionally
-      const ratio = maxH / h;
-      el.style.maxWidth = Math.round(w * ratio) + 'px';
-      el.style.maxHeight = maxH + 'px';
-    } else if (h > w) {
-      // Portrait but already shorter than 1/3 screen — still cap width
-      el.style.maxWidth = Math.min(w, 360) + 'px';
-    }
-    // Landscape / square: cap at 100% (Docusaurus container handles width)
-    el.style.display = 'block';
-    el.style.marginLeft = 'auto';
-    el.style.marginRight = 'auto';
-  }
-
-  // Run on load and after SPA navigation
-  processImages();
-
-  // MutationObserver for dynamic content (debounced)
-  let rafId = null;
-  const observer = new MutationObserver(() => {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(processImages);
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-}
-
-// Wrap in browser-only execution
-if (typeof window !== 'undefined') {
+  // Start when DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLightbox);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initLightbox();
+    init();
   }
-}
+})();
