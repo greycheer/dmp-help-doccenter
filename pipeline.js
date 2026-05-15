@@ -45,6 +45,7 @@ const DOC_CONFIGS = [
     docToken: 'P9yTddX2RoalLFxCHnbcPX5QnOb',
     title: 'DMP Platform Manual for Admin User',
     sidebarLabel: 'For Admin User',
+    sidebarPosition: 2,
     slug: 'admin-manual',
   },
   {
@@ -52,6 +53,7 @@ const DOC_CONFIGS = [
     docToken: 'XFzWdutGcoS0Ngxg1pWc9T1cnDg',
     title: 'DMP Platform Manual for Developer',
     sidebarLabel: 'For Developer',
+    sidebarPosition: 3,
     slug: 'developer-manual',
   },
 ];
@@ -1028,12 +1030,14 @@ async function main() {
 
     // Write top-level _category_.json (use sidebarLabel for shorter sidebar name)
     const categoryLabel = doc.sidebarLabel || doc.title;
+    const catJson = {
+      label: categoryLabel,
+      link: { type: 'generated-index', title: doc.title },
+    };
+    if (doc.sidebarPosition) catJson.position = doc.sidebarPosition;
     fs.writeFileSync(
       path.join(docDir, '_category_.json'),
-      JSON.stringify({
-        label: categoryLabel,
-        link: { type: 'generated-index', title: doc.title },
-      }, null, 2),
+      JSON.stringify(catJson, null, 2),
       'utf8'
     );
 
