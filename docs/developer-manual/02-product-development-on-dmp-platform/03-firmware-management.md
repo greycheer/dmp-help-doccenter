@@ -26,6 +26,8 @@ Firmware Management is used to maintain firmware information for all developer p
 
 After creation, you must click **Release** to put the firmware version into a released state before it can be used to configure OTA upgrade tasks.
 
+If you need to **Edit** or **Delete** an existing firmware version, you must first withdraw the state by clicking **Withdraw Publication**.
+
 ![image](/img/developer-manual/DuBXbAaFxoS42HxFAcXcixaNnGf.png)
 
 ![image](/img/developer-manual/NOg6bNRAaojliGxS4c8cOfgnnVc.png)
