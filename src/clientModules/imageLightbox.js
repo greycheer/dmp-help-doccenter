@@ -1,7 +1,7 @@
 /**
- * Image Lightbox — Client Module
- * Adds click-to-zoom functionality for all document images.
- * Also enforces max-width for portrait (height > width) images.
+ * Image Lightbox — Client Module (v2)
+ * Fixes: page freeze on GitHub Pages, pointer-events isolation,
+ *        backdrop-filter removal, touch-action safety.
  */
 
 function initLightbox() {
@@ -9,28 +9,56 @@ function initLightbox() {
   const overlay = document.createElement('div');
   overlay.className = 'dmp-lightbox';
   const img = document.createElement('img');
+  img.setAttribute('role', 'dialog');
+  img.setAttribute('aria-label', 'Image preview');
   overlay.appendChild(img);
   document.body.appendChild(overlay);
 
-  // Close on click
-  overlay.addEventListener('click', () => {
+  let isOpen = false;
+
+  function openLightbox(src, alt) {
+    if (isOpen) return;
+    isOpen = true;
+    img.src = src;
+    img.alt = alt || '';
+    overlay.classList.add('dmp-lightbox--active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!isOpen) return;
+    isOpen = false;
     overlay.classList.remove('dmp-lightbox--active');
     document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  // Close on overlay click (but not on the image itself)
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  // Close on image click (toggle behavior)
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeLightbox();
   });
 
   // Close on Escape
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && overlay.classList.contains('dmp-lightbox--active')) {
-      overlay.classList.remove('dmp-lightbox--active');
-      document.body.style.overflow = '';
+    if (e.key === 'Escape' && isOpen) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeLightbox();
     }
-  });
+  }, true); // capture phase to intercept before other handlers
 
   // Observe DOM for image loading (handles SPA navigation)
   function processImages() {
     const images = document.querySelectorAll('.markdown img:not(.dmp-img-processed)');
     images.forEach((el) => {
       el.classList.add('dmp-img-processed');
+      el.style.cursor = 'zoom-in';
 
       // Wait for image to load to detect orientation
       if (el.complete && el.naturalWidth > 0) {
@@ -39,13 +67,12 @@ function initLightbox() {
         el.addEventListener('load', () => applyImageSize(el), { once: true });
       }
 
-      // Click to zoom
-      el.addEventListener('click', () => {
-        img.src = el.src;
-        img.alt = el.alt || '';
-        overlay.classList.add('dmp-lightbox--active');
-        document.body.style.overflow = 'hidden';
-      });
+      // Click to zoom — use capture to avoid Docusaurus interference
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openLightbox(el.src, el.alt || '');
+      }, true);
     });
   }
 
@@ -73,9 +100,11 @@ function initLightbox() {
   // Run on load and after SPA navigation
   processImages();
 
-  // MutationObserver for dynamic content
+  // MutationObserver for dynamic content (debounced)
+  let rafId = null;
   const observer = new MutationObserver(() => {
-    processImages();
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(processImages);
   });
   observer.observe(document.body, { childList: true, subtree: true });
 }
