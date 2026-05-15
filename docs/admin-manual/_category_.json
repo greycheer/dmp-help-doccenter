@@ -1,8 +1,8 @@
 {
   "label": "For Admin User",
-  "position": 2,
   "link": {
     "type": "generated-index",
     "title": "DMP Platform Manual for Admin User"
-  }
+  },
+  "position": 2
 }
