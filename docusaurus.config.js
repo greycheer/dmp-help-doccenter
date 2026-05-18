@@ -6,8 +6,8 @@ const config = {
   title: 'DMP Help Center',
   tagline: 'DMP Platform Documentation',
   favicon: 'img/favicon.ico',
-  url: 'https://greycheer.github.io',
-  baseUrl: '/dmp-help-doccenter/',
+  url: process.env.DOCUSAURUS_URL || 'https://greycheer.github.io',
+  baseUrl: process.env.DOCUSAURUS_BASE_URL || '/dmp-help-doccenter/',
   organizationName: 'greycheer',
   projectName: 'dmp-help-doccenter',
   onBrokenLinks: 'warn',
@@ -23,7 +23,6 @@ const config = {
         docs: {
           routeBasePath: '/docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/greycheer/dmp-help-doccenter/tree/main/',
         },
         blog: false,
         theme: {
@@ -67,11 +66,6 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Docs',
-          },
-          {
-            href: 'https://github.com/greycheer/dmp-help-doccenter',
-            label: 'GitHub',
-            position: 'right',
           },
         ],
       },
