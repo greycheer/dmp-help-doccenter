@@ -35,14 +35,26 @@ const config = {
     require.resolve('./src/clientModules/imageLightbox.js'),
   ],
   plugins: [
-    // Search plugin for client-side search
+    // 中文文档实例
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zh-docs',
+        path: 'i18n/zh-CN/docusaurus-plugin-content-docs/current',
+        routeBasePath: '/zh-CN/docs',
+        sidebarPath: require.resolve('./sidebars.js'),
+      },
+    ],
+    // 搜索（支持中英双语文档）
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        language: ['en'],
+        language: ['en', 'zh'],
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
+        docsRouteBasePath: ['/docs', '/zh-CN/docs'],
+        indexDocs: true,
       },
     ],
   ],
@@ -66,6 +78,18 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Docs',
+          },
+          {
+            to: '/docs',
+            label: 'EN',
+            position: 'right',
+            activeBaseRegex: '^/docs(?!\/zh-CN)',
+          },
+          {
+            to: '/zh-CN/docs',
+            label: '中文',
+            position: 'right',
+            activeBaseRegex: '^/zh-CN',
           },
         ],
       },
