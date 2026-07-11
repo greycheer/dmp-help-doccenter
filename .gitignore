@@ -3,3 +3,8 @@ build/
 .docusaurus/
 .cache-loader/
 *.log
+gh_token.txt
+wecom_docs/
+_dmp_deploy_tmp/
+ossbrowser-upload/
+*.zip
