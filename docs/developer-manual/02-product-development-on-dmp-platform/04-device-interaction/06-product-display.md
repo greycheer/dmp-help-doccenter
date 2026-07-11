@@ -7,4 +7,4 @@ toc_min_heading_level: 2
 ---
 
 Configure the product icon, product name, and product model that are exposed to consumers on the App/Web side.
-![](/img/developer-manual/w_0010.png)
+![](/img/developer-manual/en/w_0010.png)

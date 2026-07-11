@@ -17,9 +17,9 @@ Some frontend categories are pre-created at platform delivery based on existing 
 
 Create a leaf category for the product
 To display a product in the App, you must first create a corresponding **leaf category** based on the product definition.
-In general, there is no need to create a new top-level category; required categories can be created by clicking Add Sub Item.![](/img/admin-manual/w_0032.png)
+In general, there is no need to create a new top-level category; required categories can be created by clicking Add Sub Item.![](/img/admin-manual/en/w_0032.png)
 
 After creating the corresponding frontend category, configure the provisioning wizard according to the product definition.
 Please note that the leaf category name must exactly match the product model name.
 Changes made here take effect immediately and do not require withdrawing the product release.
-![](/img/admin-manual/w_0033.png)
+![](/img/admin-manual/en/w_0033.png)

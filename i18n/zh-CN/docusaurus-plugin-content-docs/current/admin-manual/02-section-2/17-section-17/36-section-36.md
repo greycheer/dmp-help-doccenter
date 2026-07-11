@@ -7,5 +7,5 @@ toc_min_heading_level: 2
 ---
 
 **导航路径**：【产品】→【产品开发】→ 选择目标产品 →【设备交互】→【关联应用】
-![](/img/admin-manual/w_0079.png)
+![](/img/admin-manual/zh-CN/w_0079.png)
 ###

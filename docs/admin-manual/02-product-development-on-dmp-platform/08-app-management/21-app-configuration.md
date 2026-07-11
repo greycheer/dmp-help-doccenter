@@ -9,8 +9,8 @@ toc_min_heading_level: 2
 Navigation Path: [APP] – [APP Configuration]
 ###### 
 Enter the page and click Modify
-![](/img/admin-manual/w_0018.png)
-Fill in the setting and click Save.![](/img/admin-manual/w_0019.png)Tips for filling:
+![](/img/admin-manual/en/w_0018.png)
+Fill in the setting and click Save.![](/img/admin-manual/en/w_0019.png)Tips for filling:
 Whether Google Home is supported (Yes/No)
 Whether Alexa is supported (Yes/No)
 Whether the cloud storage marketplace is enabled (Yes/No)

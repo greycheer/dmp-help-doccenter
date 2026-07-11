@@ -10,13 +10,13 @@ toc_min_heading_level: 2
 
 配网的配置分三种：
 1. 配网首页-蓝牙配网：
-当设备复位通电，且APP开启蓝牙时，即可在APP配网页的蓝牙设备区域（如下图）检测到设备![](/img/admin-manual/w_0029.png)
+当设备复位通电，且APP开启蓝牙时，即可在APP配网页的蓝牙设备区域（如下图）检测到设备![](/img/admin-manual/zh-CN/w_0029.png)
 配网首页-点击页面右上角扫设备机身码配网
-![](/img/admin-manual/w_0030.png)
+![](/img/admin-manual/zh-CN/w_0030.png)
 
 配网首页-选择设备型号配网
-![](/img/admin-manual/w_0031.png)
+![](/img/admin-manual/zh-CN/w_0031.png)
 
 其中，第一种蓝牙直接配网，无需在DMP管理后台配置，后两种配网配置均需在DMP管理后台配置配网引导。（如下图所示）下面将介绍第二、第三种配网配置的操作
 
-![](/img/admin-manual/w_0032.png)
+![](/img/admin-manual/zh-CN/w_0032.png)

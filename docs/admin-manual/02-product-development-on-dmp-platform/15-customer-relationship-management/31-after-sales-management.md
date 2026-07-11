@@ -6,4 +6,4 @@ toc_max_heading_level: 6
 toc_min_heading_level: 2
 ---
 
-![](/img/admin-manual/w_0055.png)
+![](/img/admin-manual/en/w_0055.png)

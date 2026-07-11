@@ -37,5 +37,5 @@ l设备绑定向导
 2. 填写引导文案和引导图
 3. 保存并预览
 4. 打开启用开关，正式生效
-![](/img/developer-manual/w_0037.png)
-![](/img/developer-manual/w_0038.png)
+![](/img/developer-manual/zh-CN/w_0037.png)
+![](/img/developer-manual/zh-CN/w_0038.png)

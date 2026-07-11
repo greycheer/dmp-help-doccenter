@@ -6,8 +6,8 @@ toc_max_heading_level: 6
 toc_min_heading_level: 2
 ---
 
-进入页面，点击编辑![](/img/admin-manual/w_0020.png)
-依次填入一下信息，并点击保存![](/img/admin-manual/w_0021.png)填写说明：
+进入页面，点击编辑![](/img/admin-manual/zh-CN/w_0020.png)
+依次填入一下信息，并点击保存![](/img/admin-manual/zh-CN/w_0021.png)填写说明：
 是否支持Google Home（提供是否即可）
 是否支持Alexa（提供是否即可）
 是否开启云存储商城（提供是否即可）

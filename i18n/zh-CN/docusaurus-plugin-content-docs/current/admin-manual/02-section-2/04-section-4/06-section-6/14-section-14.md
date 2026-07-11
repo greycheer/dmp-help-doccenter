@@ -27,11 +27,11 @@ toc_min_heading_level: 2
 
 点击新建功能
 
-![](/img/admin-manual/w_0010.png)
+![](/img/admin-manual/zh-CN/w_0010.png)
 
 填入功能相关信息即可创建成功
 DP ID为1开头的标准功能由SDK开发人员自定义，其他部门不对其进行任何修改
 标准功能被添加后，即可被添加到产品下
 当标准功能已被产品添加时，部分属性与参数不可编辑，需先将功能与所有添加的产品解绑，才可修改
 通过点击关联产品，可查看当前哪些产品下已添加了标准功能
-![](/img/admin-manual/w_0011.png)
+![](/img/admin-manual/zh-CN/w_0011.png)

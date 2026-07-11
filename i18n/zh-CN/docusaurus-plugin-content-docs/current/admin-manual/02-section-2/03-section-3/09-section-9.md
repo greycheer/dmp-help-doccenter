@@ -10,10 +10,10 @@ toc_min_heading_level: 2
 初始角色基于业务经验配置，建议尽量不做调整，只新增角色
 
 进入角色配置页面，点击新增
-![](/img/admin-manual/w_0003.png)
+![](/img/admin-manual/zh-CN/w_0003.png)
 
 
 填入角色名称，根据角色定义勾选对应的页面与功能即可
-![](/img/admin-manual/w_0004.png)
+![](/img/admin-manual/zh-CN/w_0004.png)
 
 可通过本页面的编辑、删除功能管理角色组

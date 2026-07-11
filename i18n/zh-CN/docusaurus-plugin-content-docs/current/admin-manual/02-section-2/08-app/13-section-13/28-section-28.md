@@ -8,28 +8,28 @@ toc_min_heading_level: 2
 
 定义云存模板（配置云存的天数、云服务商等）
 **入口导航：【营销】-【增值服务】-【云存模板】**
-![](/img/admin-manual/w_0037.png)
+![](/img/admin-manual/zh-CN/w_0037.png)
 
 在[云存模板]中新建/管理模板，定义模板基础信息。
 
-![](/img/admin-manual/w_0038.png)
+![](/img/admin-manual/zh-CN/w_0038.png)
 
 
 定义云存商品（为云存模板定价、配置购买限制等）
 **入口导航：【营销】-【增值服务】-【商城管理】-【商品管理】**
 在[商品管理]中用模板创建具体商品，定义商品售价等信息。
-![](/img/admin-manual/w_0039.png)
-![](/img/admin-manual/w_0040.png)
+![](/img/admin-manual/zh-CN/w_0039.png)
+![](/img/admin-manual/zh-CN/w_0040.png)
 
 定义云存商品分组（将云存商品分组方便管理）
 **入口导航：【营销】-【增值服务】-【商城管理】-【商品管理】**
 在[商品分组]中创建商品分组关联多个商品进行批量管理。
-![](/img/admin-manual/w_0041.png)
+![](/img/admin-manual/zh-CN/w_0041.png)
 
-![](/img/admin-manual/w_0042.png)
+![](/img/admin-manual/zh-CN/w_0042.png)
 
 
 定义云存商品分组（将云存商品分组方便管理）
 **入口导航：【营销】-【增值服务】-【商城管理】-【商品货架】**
 在[商品货架]中选择商品分组，配置上架位置等信息完成上架。
-![](/img/admin-manual/w_0043.png)
+![](/img/admin-manual/zh-CN/w_0043.png)

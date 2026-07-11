@@ -14,7 +14,7 @@ toc_min_heading_level: 2
 iOS:
 推送证书配置即可生效，证书有效期是一年，需在证书失效前更新。
 
-![](/img/admin-manual/w_0027.png)
+![](/img/admin-manual/zh-CN/w_0027.png)
 
 
-![](/img/admin-manual/w_0028.png)
+![](/img/admin-manual/zh-CN/w_0028.png)

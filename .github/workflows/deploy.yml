@@ -22,13 +22,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install
-      - name: Sync from Feishu
-        run: npm run sync
-        env:
-          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+      # 文档由 pipeline_wecom.js 在本地从企业微信文档生成后提交到仓库，
+      # CI 直接构建已提交的产物（不在此拉取飞书/企业微信源）。
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

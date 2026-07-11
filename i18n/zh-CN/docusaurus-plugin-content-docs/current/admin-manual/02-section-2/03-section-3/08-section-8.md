@@ -9,12 +9,12 @@ toc_min_heading_level: 2
 **入口页面导航：【设置】-【账号管理】**
 
 进入账号配置页面，点击新增账号
-![](/img/admin-manual/w_0001.png)
+![](/img/admin-manual/zh-CN/w_0001.png)
 
 
 填入账号信息，选择所属角色（可多选）并点击确认，即可创建账号
 备注：邮箱、电话、密码信息，用户登录后可自行修改
-![](/img/admin-manual/w_0002.png)
+![](/img/admin-manual/zh-CN/w_0002.png)
 
 将平台登录页域名、登录账号、密码提供给对应人员。
 

@@ -13,7 +13,7 @@ APP 安卓包名（64个字符内，可联系APP开发提供）
 APP iOS包名（64个字符内，可联系APP开发提供）
 
 创建APP**入口页面导航：【****A****P****P****】-【****A****P****P****管理****】**
-点击 新建 APP![](/img/admin-manual/w_0017.png)
-在弹窗中依次填入准备好的信息后，点击确认![](/img/admin-manual/w_0018.png)
+点击 新建 APP![](/img/admin-manual/zh-CN/w_0017.png)
+在弹窗中依次填入准备好的信息后，点击确认![](/img/admin-manual/zh-CN/w_0018.png)
 创建APP后，后台会自动创建APP Bound，需要提供给APP开发用于APP打包
-![](/img/admin-manual/w_0019.png)
+![](/img/admin-manual/zh-CN/w_0019.png)

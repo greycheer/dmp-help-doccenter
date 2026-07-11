@@ -15,5 +15,5 @@ Subsequent updates: If the Firebase push project under the Google account change
 iOS:
 The push certificate takes effect immediately after configuration. The certificate is valid for one year and must be renewed before expiration.
 
-![](/img/admin-manual/w_0025.png)
-![](/img/admin-manual/w_0026.png)
+![](/img/admin-manual/en/w_0025.png)
+![](/img/admin-manual/en/w_0026.png)

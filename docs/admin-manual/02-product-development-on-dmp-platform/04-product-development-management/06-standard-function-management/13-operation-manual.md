@@ -30,11 +30,11 @@ Special functions supported only by certain products within a category. Develope
 
 Navigation Path: [Products] – [Standard Functions]
 Click **Create Function**
-![](/img/admin-manual/w_0008.png)
+![](/img/admin-manual/en/w_0008.png)
 After filling in the function-related information, the function can be created successfully.
 Standard functions with **DP IDs starting with “1”** are defined by SDK developers. Other departments must not modify these functions.
 Once a standard function is created, it can be added to products.
 If a standard function has already been added to one or more products, some attributes and parameters become non-editable. To modify them, the function must first be unbound from all associated products.
 By clicking **Associated Products**, you can view which products currently include this standard function.
-![](/img/admin-manual/w_0009.png)
+![](/img/admin-manual/en/w_0009.png)
 ##
