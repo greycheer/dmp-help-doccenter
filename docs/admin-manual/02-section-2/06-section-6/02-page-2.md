@@ -8,4 +8,4 @@ toc_min_heading_level: 2
 
 **Navigation Path**: Product → Product Development → select a target product → Device Interaction → Associated Application
 
-###
+![](/img/admin-manual/en/w_0078.png)
