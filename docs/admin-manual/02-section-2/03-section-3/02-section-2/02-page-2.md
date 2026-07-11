@@ -48,7 +48,7 @@ Navigation Path: [Products] – [Standard Functions]
 
 Click **Create Function**
 
-![](/img/admin-manual/en/w_0008.png)
+![](/img/admin-manual/en/w_0010.png)
 
 After filling in the function-related information, the function can be created successfully.
 
@@ -60,6 +60,6 @@ If a standard function has already been added to one or more products, some attr
 
 By clicking **Associated Products**, you can view which products currently include this standard function.
 
-![](/img/admin-manual/en/w_0009.png)
+![](/img/admin-manual/en/w_0011.png)
 
 ##

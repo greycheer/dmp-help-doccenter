@@ -10,7 +10,7 @@ Navigation Path: [Products] – [Product Development] – [Continue Development]
 
 Ensure the product is currently in the **“In Development”** status. If the product is in **“Pre-release”** or **“Released”** status, you must first withdraw the release before editing the provisioning wizard.
 
-![](/img/admin-manual/en/w_0031.png)b. Configure and enable the wizard under“Device Interaction – Wizard Configuration” on the product details page.
+![](/img/admin-manual/en/w_0033.png)b. Configure and enable the wizard under“Device Interaction – Wizard Configuration” on the product details page.
 
 Note: PNG and GIF formats are supported. Each provisioning method configured requires clicking Save once.
 

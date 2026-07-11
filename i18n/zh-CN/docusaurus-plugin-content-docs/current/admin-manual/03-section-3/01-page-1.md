@@ -1,6 +1,6 @@
 ---
-sidebar_position: 4
-title: "文档修订历史"
+sidebar_position: 1
+title: "3.1 文档修订历史"
 toc: true
 toc_max_heading_level: 6
 toc_min_heading_level: 2
@@ -14,8 +14,4 @@ toc_min_heading_level: 2
 | 2026-04-02 | V 0.7 | 补充设备解绑指引 | Silvia |
 | 2026-07-09 | V 0.8 | 新增关联应用配置章节（2.5）及配套术语、FAQ | Silvia |
 
-# 
-
-用一个常见品类做配置示例
-
-通知
+###

@@ -14,19 +14,19 @@ There are three network provisioning entry methods:
 
 When the device is reset and powered on, and Bluetooth is enabled on the App, the device can be detected in the Bluetooth device area of the provisioning page (as shown below).
 
-![](/img/admin-manual/en/w_0027.png)
+![](/img/admin-manual/en/w_0029.png)
 
 Provisioning Home – Scan Device QR Code: Tap the scan icon in the top-right corner of the provisioning page to scan the device QR code for provisioning.
 
-![](/img/admin-manual/en/w_0028.png)
+![](/img/admin-manual/en/w_0030.png)
 
 Provisioning Home – Select Device Model: Select the device model from the list to start provisioning.
 
-![](/img/admin-manual/en/w_0029.png)
+![](/img/admin-manual/en/w_0031.png)
 
 
 Among these, Bluetooth direct provisioning does not require configuration in the DMP Management Console.
 
 The latter two methods require configuring the provisioning guide in the DMP console (as shown below). The following section explains how to configure the second and third methods.
 
-![](/img/admin-manual/en/w_0030.png)
+![](/img/admin-manual/en/w_0032.png)

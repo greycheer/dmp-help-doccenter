@@ -10,9 +10,9 @@ Navigation Path: [APP] – [APP Configuration]
 ###### 
 Enter the page and click Modify
 
-![](/img/admin-manual/en/w_0018.png)
+![](/img/admin-manual/en/w_0020.png)
 
-Fill in the setting and click Save.![](/img/admin-manual/en/w_0019.png)Tips for filling:
+Fill in the setting and click Save.![](/img/admin-manual/en/w_0021.png)Tips for filling:
 
 Whether Google Home is supported (Yes/No)
 

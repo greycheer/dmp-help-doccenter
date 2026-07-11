@@ -38,6 +38,11 @@ console.log(`  文件: ${(content.length / 1024 / 1024).toFixed(1)} MB`);
 // 相邻粗体合并：WeCom 导出 **a****b** → **ab**（修多余的 *）
 content = content.replace(/\*\*\*\*/g, '');
 
+// 剔除源文档里的孤立占位/备注杂行（如"用一个常见品类做配置示例"、裸"通知"等）
+// 只剔整行匹配的，不影响正文里出现的同名词
+const JUNK_LINES = new Set(['用一个常见品类做配置示例', '通知', '用一个常见品类做配置示例。']);
+content = content.split('\n').filter(l => !JUNK_LINES.has(l.trim())).join('\n');
+
 // 提取 base64 图片（按语言分目录，避免 en/zh 同名 w_XXXX.png 互相覆盖）
 const imgDir = path.join(__dirname, 'static', 'img', SLUG, LANG);
 fs.mkdirSync(imgDir, { recursive: true });

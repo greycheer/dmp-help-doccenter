@@ -20,6 +20,6 @@ iOS:
 
 The push certificate takes effect immediately after configuration. The certificate is valid for one year and must be renewed before expiration.
 
-![](/img/admin-manual/en/w_0025.png)
+![](/img/admin-manual/en/w_0027.png)
 
-![](/img/admin-manual/en/w_0026.png)
+![](/img/admin-manual/en/w_0028.png)

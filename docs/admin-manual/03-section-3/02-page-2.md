@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-title: "FAQ"
+sidebar_position: 2
+title: "3.2 FAQ"
 toc: true
 toc_max_heading_level: 6
 toc_min_heading_level: 2
@@ -77,3 +77,28 @@ LAN Scanning and ID Addition as backup methods.
 **Q: Will changing the association affect devices already bound to an app?** 
 
 - No. Already-bound devices will continue to function normally. However, if such a device is unbound, re-adding it will be subject to the new rules.
+
+
+这张没事
+
+没事+1
+
+可
+
+留
+
+留
+
+留
+
+留
+
+留
+
+Group Name打码
+
+改， Affiliated App打码
+
+留
+
+改， Belonging to App打码

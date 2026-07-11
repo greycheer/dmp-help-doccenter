@@ -10,11 +10,11 @@ The DMP Management Console supports configuring Frequently Asked Questions (FAQs
 
 App Knowledge Base Entry:
 
-![](/img/admin-manual/en/w_0042.png)![](/img/admin-manual/en/w_0043.png)
+![](/img/admin-manual/en/w_0044.png)![](/img/admin-manual/en/w_0045.png)
 
 Device Knowledge Base Entry:
 
-![](/img/admin-manual/en/w_0044.png)![](/img/admin-manual/en/w_0045.png)![](/img/admin-manual/en/w_0046.png)
+![](/img/admin-manual/en/w_0046.png)![](/img/admin-manual/en/w_0047.png)![](/img/admin-manual/en/w_0048.png)
 
 These built-in FAQs correspond to the [Knowledge Base] module in the DMP Management Console.
 

@@ -10,12 +10,12 @@ toc_min_heading_level: 2
 
 On the **[Marketing] - [Mall Manage] - [Commodity Order]** page, use the search bar at the top to locate the order by entering the Order ID, User ID, or other information.
 
-![](/img/admin-manual/en/w_0064.png)
+![](/img/admin-manual/en/w_0066.png)
 
 In the corresponding order row, click the **[Unsubscribe]** button to trigger the cancellation pop-up window.
 
-![](/img/admin-manual/en/w_0065.png)
+![](/img/admin-manual/en/w_0067.png)
 
 In the pop-up window, select the appropriate **refund method** and/or **service cancellation method** according to the business requirements, then confirm the operation.
 
-![](/img/admin-manual/en/w_0066.png)
+![](/img/admin-manual/en/w_0068.png)

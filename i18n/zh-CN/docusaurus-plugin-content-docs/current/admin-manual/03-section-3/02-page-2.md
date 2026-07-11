@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-title: "FAQ"
+sidebar_position: 2
+title: "3.2 FAQ"
 toc: true
 toc_max_heading_level: 6
 toc_min_heading_level: 2
@@ -69,3 +69,5 @@ ID 添加 / 设备扫码：备选方案
 **Q：如何更改设备扫码后的默认下载 APP？**→ 在【关联应用】配置中修改「主应用」设置。注意需在产品「开发中」状态下修改，切换至「预发布」后生效。
 
 **Q：已绑定到 APP 的设备，更改关联关系后会受影响吗？**→ 不会。已绑定的设备使用不受影响。但该设备解绑后，重新添加时将受新规则约束。
+
+#

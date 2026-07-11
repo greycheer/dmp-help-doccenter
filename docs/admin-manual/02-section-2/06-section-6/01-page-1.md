@@ -10,6 +10,6 @@ The Associated Applications feature manages the **relationship between hardware 
 
 **Core Rule**: Devices can only be discovered and added by apps associated with their PID; unassociated apps cannot discover the device.
 
-For the complete rule details, click "Details>" in the Feature Overview panel on the configuration page (see the screenshot in step 4 of 2.5.3).
+For the complete rule details, click "Details" in the Feature Overview panel on the configuration page (see the screenshot in step 4 of 2.5.3).
 
 ####

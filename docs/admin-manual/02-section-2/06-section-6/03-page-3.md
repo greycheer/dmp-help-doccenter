@@ -26,4 +26,4 @@ After configuration, click "Save and Update", then switch the product status to 
 
 Click "Details>" in the "Feature Overview" panel on the right side of the page to open the complete rules popup.
 
-![](/img/admin-manual/en/w_0076.png)
+![](/img/admin-manual/en/w_0078.png)

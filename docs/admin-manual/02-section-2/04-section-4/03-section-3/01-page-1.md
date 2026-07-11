@@ -12,7 +12,7 @@ a. Create a version:
 
 Click Add Version, enter the agreement version number, and click Confirm.Note: Once added, an agreement version cannot be deleted. Only versions with a higher number than the currently active one can take effect. Please enter carefully.
 
-![](/img/admin-manual/en/w_0022.png)
+![](/img/admin-manual/en/w_0024.png)
 
 b. Edit version content:
 
@@ -20,7 +20,7 @@ Select the language to be added, edit the title and content, and click Save.
 
 Without closing the dialog, select the next language and repeat the above steps. After all languages for the current version are completed and saved, close the dialog.
 
-![](/img/admin-manual/en/w_0023.png)
+![](/img/admin-manual/en/w_0025.png)
 
 c. Enable the agreement:
 
@@ -28,4 +28,4 @@ Click Enable on the page to make the agreement effective (there may be a delay o
 
 Before enabling, the agreement content can be reviewed and edited again. Once enabled, the agreement will be locked and cannot be modified.
 
-![](/img/admin-manual/en/w_0024.png)
+![](/img/admin-manual/en/w_0026.png)
