@@ -109,7 +109,49 @@ function getContent(h) {
   return lines.slice(start, end).join('\n').trim();
 }
 
-// ─── Step 5: 写入（递归） ───
+/**
+ * 修复 WeCom 非标准表格格式
+ */
+function fixWecomTable(text) {
+  const lines = text.split('\n');
+  const out = [];
+  let i = 0;
+  while (i < lines.length) {
+    // 找到表格：连续的 |cell 行（至少 2 行不同内容的 |cell）
+    let j = i;
+    while (j < lines.length && lines[j].trimStart().startsWith('|')) j++;
+    if (j <= i + 1) { out.push(lines[i]); i++; continue; }
+    
+    // 收集所有以 | 开头的行（包括空 |）
+    const tableLines = lines.slice(i, j).map(l => l.trim());
+    // 过滤出有内容的 cell 行
+    const cellLines = tableLines.filter(l => l.length > 1);
+    
+    // 找到分隔行位置
+    const sepPos = cellLines.findIndex(l => /^\|[-| ]+\|?$/.test(l));
+    if (sepPos < 0) { out.push(lines[i]); i++; continue; }
+    
+    const hdrs = cellLines.slice(0, sepPos);
+    if (hdrs.length < 2) { out.push(lines[i]); i++; continue; }
+    
+    out.push('| ' + hdrs.map(c => c.replace(/^\|/, '').replace(/\|$/, '').trim()).join(' | ') + ' |');
+    out.push('| ' + hdrs.map(() => '---').join(' | ') + ' |');
+    
+    // 数据：separator 之后的内容，每 hdrs.length 个 cell 为一行
+    const dataCells = cellLines.slice(sepPos + 1);
+    for (let d = 0; d + hdrs.length <= dataCells.length; d += hdrs.length) {
+      const row = dataCells.slice(d, d + hdrs.length).map(c => c.replace(/^\|/, '').replace(/\|$/, '').trim());
+      out.push('| ' + row.join(' | ') + ' |');
+    }
+    
+    i = j;
+    // 跳过结尾的空行
+    while (i < lines.length && !lines[i].trim()) i++;
+  }
+  return out.join('\n');
+}
+
+// ─── 写入 ───
 if (fs.existsSync(OUT_DIR)) fs.rmSync(OUT_DIR, { recursive: true, force: true });
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -125,7 +167,6 @@ let catIdx = 0, pageIdxGlobal = 0;
 function writeNode(nodes, parentDir, depth) {
   for (const n of nodes) {
     if (n.children.length > 0) {
-      // 非叶子 → 子目录
       catIdx++;
       const slug = slugify(n.title, String(catIdx));
       const dir = path.join(parentDir, `${String(catIdx).padStart(2, '0')}-${slug}`);
@@ -135,17 +176,16 @@ function writeNode(nodes, parentDir, depth) {
       }, null, 2), 'utf8');
       writeNode(n.children, dir, depth + 1);
     } else {
-      // 叶子 → .md 文件
       pageIdxGlobal++;
       const slug = slugify(n.title, String(pageIdxGlobal));
       const content = getContent(n);
       const fm = `---\nsidebar_position: ${pageIdxGlobal}\ntitle: "${n.title.replace(/"/g, '\\"')}"\ntoc: true\ntoc_max_heading_level: 6\ntoc_min_heading_level: 2\n---`;
       const file = `${String(pageIdxGlobal).padStart(2, '0')}-${slug}.md`;
-      // MDX 安全转义
       let safeContent = content
         .replace(/<(?!\/?[a-zA-Z]|\!|\?)/g, '\\<')
         .replace(/\{/g, '\\{')
         .replace(/^\*\s+/gm, '- ');
+      safeContent = fixWecomTable(safeContent);
       fs.writeFileSync(path.join(parentDir, file), fm + '\n\n' + safeContent, 'utf8');
     }
   }
