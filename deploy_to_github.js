@@ -28,7 +28,7 @@ const CLONE = path.join(BASE, '..', '_dmp_deploy_tmp');
 const REPO_URL = `https://${TOKEN}@github.com/${OWNER}/${REPO}.git`;
 
 const DIRS = ['docs', 'i18n', 'static', 'src', '.github'];
-const FILES = ['docusaurus.config.js', 'sidebars.js', 'package.json', 'pipeline_wecom.js', 'check_i18n_alignment.js', 'deploy_to_github.js', 'update_and_deploy.cmd', '.gitignore', 'README.md'];
+const FILES = ['docusaurus.config.js', 'sidebars.js', 'package.json', 'pipeline_wecom.js', 'check_i18n_alignment.js', 'deploy_to_github.js', 'update_and_deploy.cmd', 'fetch_wecom_docs.sh', '.gitignore', 'README.md'];
 
 function run(cmd) {
   console.log('  $ ' + cmd.replace(TOKEN, '***'));
