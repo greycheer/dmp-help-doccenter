@@ -67,7 +67,7 @@ export default function Home() {
             integrate with the DMP platform — all in one place.
           </p>
           <div className="dmp-hero__actions">
-            <Link className="dmp-btn dmp-btn--primary" to="/docs/admin-manual/introduction/purpose-of-the-manual">
+            <Link className="dmp-btn dmp-btn--primary" to="/docs/admin-manual/section-1/page-1">
               Get Started →
             </Link>
             <Link className="dmp-btn dmp-btn--secondary" to="/docs/category/for-admin-user">

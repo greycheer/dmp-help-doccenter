@@ -1,0 +1,22 @@
+---
+sidebar_position: 3
+title: "1.3 Terminology Explanation"
+toc: true
+toc_max_heading_level: 6
+toc_min_heading_level: 2
+---
+
+Before starting, understand the following core concepts:
+
+| Terminology | Explaination | Example |
+| --- | --- | --- |
+| Category | In IoT platforms, refers to a collection of devices with identical functional definitions or application scenarios, serving as templates for product definitions | "Smart Bulb" defining common attributes like switch status/brightness |
+| Product | Specific device models or series under a category, with globally unique identifiers (PID). | A developer creates the "CS-6-AD Smart Bulb" product using the "Smart Bulb" category. |
+| Thing Model | A digital data model describing "what a device is, what it can do, and what it can notify." It standardizes device-cloud data interaction and includes three subtypes: _Properties_, _Actions_, and _Events_. | A "Smart AC" thing model may include:<br />- _Property_: Current temperature (read/write), operating mode (read/write).<br />- _Action_: Set fan speed (device-executable command).<br />- _Event_: Filter replacement alert (device-initiated notification). |
+| Per-device Secret | A device authentication and key management scheme. Unique credentials (ID + secret) are pre-burned into each device during production for bidirectional authentication with the IoT platform. DMP uses **Tuple**  for this purpose. | A factory burns a globally unique certificate into each smart door lock during production. |
+| Tuple | Generated after product creation. Each set contains unique identifiers and connection parameters for a device | - productId(PID): Unique product model ID (burn recommended).<br />- deviceUuid: Unique device ID (must be burned).<br />- deviceSecret: Device secret (must be burned).<br />- qrCode: Short URL for QR code labeling (user scanning).<br />- ngwDomain: Cloud platform entry address (shared across DMP).<br />- deviceCode: Simplified logical ID (rarely used). |
+| OTA | Remote wireless updates (Wi-Fi/4G) for device firmware/software. DMP provides full OTA capabilities.<br />**Supported methods**:<br />- _APP Upgrade_:<br />- Manual: Users trigger upgrades via APP.<br />- Automatic: Devices auto-check and upgrade periodically.<br />- _Silent OTA_: Server pushes urgent updates without broadcasting notification tones. | When pushing firmware updates in bulk to deployed smart speakers—whether to fix bugs or introduce new features—OTA provides an efficient solution. |
+| Device Binding | Process of associating a device with a user account to grant remote control permissions via APP. | Binding methods: QR scanning, device ID input, Bluetooth and etc. |
+| Device Network Provisioning | Configuring a device's network settings (e.g., Wi-Fi SSID/password) to enable internet access and cloud communication. | Methods: Bluetooth, device hotspot and etc. |
+| Associated Applications | Specifies which apps this device model can be discovered, added, and used in. If a PID is not associated with an app, that app cannot search for, add, or bind devices under that PID. | Product A is associated with App-X and App-Y, so its devices can be discovered and added in both apps, but will not appear in App-Z. |
+| Primary App | When a device requests app information (such as the app download URL), this is the app returned by the system. If a hardware product is linked to multiple apps, only the Primary App information will be returned. | Product A is associated with App-X and App-Y, with Primary App set to App-X. Scanning the device QR code will redirect to App-X's download page. |

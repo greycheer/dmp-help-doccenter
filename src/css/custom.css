@@ -1062,3 +1062,34 @@ body {
 .theme-doc-sidebar-container + div {
   transition: opacity 0.3s ease;
 }
+
+/* Language switcher (hoverable dropdown) */
+.lang-switch .navbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: default;
+}
+.lang-switch__globe {
+  font-size: 1rem;
+  line-height: 1;
+}
+.lang-switch__caret {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+.lang-switch .dropdown__menu {
+  min-width: 8rem;
+}
+.lang-switch .dropdown__link {
+  font-weight: 500;
+}
+.lang-switch .dropdown__link--active {
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+}
+.lang-switch .dropdown__link--active::before {
+  content: '✓ ';
+}

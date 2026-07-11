@@ -80,16 +80,8 @@ const config = {
             label: 'Docs',
           },
           {
-            to: '/docs',
-            label: 'EN',
+            type: 'custom-langSwitch',
             position: 'right',
-            activeBaseRegex: '^/docs(?!\/zh-CN)',
-          },
-          {
-            to: '/zh-CN/docs',
-            label: '中文',
-            position: 'right',
-            activeBaseRegex: '^/zh-CN',
           },
         ],
       },

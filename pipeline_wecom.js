@@ -1,7 +1,14 @@
 /**
- * pipeline_wecom.js — DMP Help Center sync pipeline (WeCom Docs)
+ * pipeline_wecom.js — DMP Help Center sync pipeline (WeCom Docs)  v3
  *
  * 从企业微信文档（Markdown）解析标题树，递归生成 Docusaurus 目录结构。
+ *
+ * v3 修复：
+ *   - 图片按语言命名空间（static/img/{slug}/{lang}/w_XXXX.png）
+ *   - fixWecomTable 重写：cell 支持多行续行（列表/段落），用 <br> 合并
+ *   - fixWecomParagraphs：段落间补空行；行首 → 转列表项
+ *   - 相邻粗体 **** 合并（修 WeCom 导出的 **a****b** 问题）
+ *   - writeNode 改为每父节点本地计数器，兄弟按文档真实顺序
  *
  * 用法：
  *   node pipeline_wecom.js --input=wecom_docs/en_admin.md --lang=en --label="For Admin User" --slug=admin-manual
@@ -28,17 +35,20 @@ let content = fs.readFileSync(INPUT, 'utf8')
   .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
 console.log(`  文件: ${(content.length / 1024 / 1024).toFixed(1)} MB`);
 
-// 提取 base64 图片
-const imgDir = path.join(__dirname, 'static', 'img', SLUG);
+// 相邻粗体合并：WeCom 导出 **a****b** → **ab**（修多余的 *）
+content = content.replace(/\*\*\*\*/g, '');
+
+// 提取 base64 图片（按语言分目录，避免 en/zh 同名 w_XXXX.png 互相覆盖）
+const imgDir = path.join(__dirname, 'static', 'img', SLUG, LANG);
 fs.mkdirSync(imgDir, { recursive: true });
 let imgCount = 0;
 content = content.replace(/!\[([^\]]*)\]\(data:image\/(png|jpeg|jpg|gif);base64,([^)]+)\)/g, (_, alt, ext, b64) => {
   imgCount++;
   const fname = `w_${String(imgCount).padStart(4, '0')}.${ext === 'jpeg' ? 'jpg' : ext}`;
   try { fs.writeFileSync(path.join(imgDir, fname), Buffer.from(b64, 'base64')); } catch {}
-  return `![${alt}](/img/${SLUG}/${fname})`;
+  return `![${alt}](/img/${SLUG}/${LANG}/${fname})`;
 });
-if (imgCount) console.log(`  图片: ${imgCount} 张 → static/img/${SLUG}/`);
+if (imgCount) console.log(`  图片: ${imgCount} 张 → static/img/${SLUG}/${LANG}/`);
 
 // ─── Step 2: 构建标题行索引 ───
 const lines = content.split('\n');
@@ -57,19 +67,10 @@ console.log(`  标题: ${headings.length} 个`);
 
 // ─── Step 3: 递归构建节点树 ───
 function slugify(text, fallback) {
-  // 先尝试英文 slug
-  let s = text.toLowerCase()
-    .replace(/^[\d.]+[\s-]+/, '')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .substring(0, 80);
-  // 如果完全去掉了中文变成空的，用 fallback 编号
-  if (!s || s.length < 2) {
-    s = 'section-' + (fallback || '1');
-  }
-  return s;
+  // 按位置生成 slug（section-N）：保证 EN/ZH 路径对齐（语言切换可停留在当前页），
+  // 同时避免同名标题（如多个 "App"）导致 Docusaurus doc ID 冲突。
+  // 侧边栏可读性由 _category_.json 的 label（真实标题）保证，URL 用 section-N。
+  return 'section-' + (fallback || '1');
 }
 
 function buildTree(hList, startIdx, endIdx) {
@@ -78,7 +79,6 @@ function buildTree(hList, startIdx, endIdx) {
   let i = startIdx;
   while (i < endIdx) {
     const h = hList[i];
-    // 找 children: 下一个同级别或更高级别的 heading 之前的所有行
     let j = i + 1;
     while (j < endIdx && hList[j].level > h.level) j++;
     const children = (j > i + 1) ? buildTree(hList, i + 1, j) : [];
@@ -88,7 +88,6 @@ function buildTree(hList, startIdx, endIdx) {
   return nodes;
 }
 
-// 跳过 H1（文档标题），从 H2 开始
 const startIdx = headings.findIndex(h => h.level >= 2);
 let topHeadings = startIdx >= 0 ? headings.slice(startIdx) : headings;
 
@@ -100,7 +99,6 @@ console.log(`  H2 目录: ${h2Count} 个`);
 function getContent(h) {
   const start = h.line + 1;
   let end = lines.length;
-  // 找到下一个同级或更高级标题
   for (let k = 0; k < headings.length; k++) {
     if (headings[k].line > h.line && headings[k].level <= h.level) {
       end = headings[k].line; break;
@@ -109,44 +107,105 @@ function getContent(h) {
   return lines.slice(start, end).join('\n').trim();
 }
 
-/**
- * 修复 WeCom 非标准表格格式
- */
+// ─── 表格修复 v2 ───
+// 处理 WeCom 非标准表格：每个 cell 一行（|cell），行尾 | 终止符，cell 可含多行续行
 function fixWecomTable(text) {
-  const lines = text.split('\n');
+  const ls = text.split('\n');
   const out = [];
   let i = 0;
-  while (i < lines.length) {
-    // 找到表格：连续的 |cell 行（至少 2 行不同内容的 |cell）
+  while (i < ls.length) {
+    if (!ls[i].trimStart().startsWith('|')) { out.push(ls[i]); i++; continue; }
+    // 收集表格块
+    const block = [];
     let j = i;
-    while (j < lines.length && lines[j].trimStart().startsWith('|')) j++;
-    if (j <= i + 1) { out.push(lines[i]); i++; continue; }
-    
-    // 收集所有以 | 开头的行（包括空 |）
-    const tableLines = lines.slice(i, j).map(l => l.trim());
-    // 过滤出有内容的 cell 行
-    const cellLines = tableLines.filter(l => l.length > 1);
-    
-    // 找到分隔行位置
-    const sepPos = cellLines.findIndex(l => /^\|[-| ]+\|?$/.test(l));
-    if (sepPos < 0) { out.push(lines[i]); i++; continue; }
-    
-    const hdrs = cellLines.slice(0, sepPos);
-    if (hdrs.length < 2) { out.push(lines[i]); i++; continue; }
-    
-    out.push('| ' + hdrs.map(c => c.replace(/^\|/, '').replace(/\|$/, '').trim()).join(' | ') + ' |');
-    out.push('| ' + hdrs.map(() => '---').join(' | ') + ' |');
-    
-    // 数据：separator 之后的内容，每 hdrs.length 个 cell 为一行
-    const dataCells = cellLines.slice(sepPos + 1);
-    for (let d = 0; d + hdrs.length <= dataCells.length; d += hdrs.length) {
-      const row = dataCells.slice(d, d + hdrs.length).map(c => c.replace(/^\|/, '').replace(/\|$/, '').trim());
-      out.push('| ' + row.join(' | ') + ' |');
+    let lastWasTerminator = false;
+    while (j < ls.length) {
+      const ln = ls[j];
+      if (ln.trimStart().startsWith('|')) {
+        block.push(ln);
+        lastWasTerminator = (ln.trim() === '|');
+        j++;
+      } else if (/^#{1,6}\s/.test(ln)) {
+        break;
+      } else if (ln.trim() === '') {
+        // 空白行：若下一行是 | 则属于表内，否则结束
+        if (j + 1 < ls.length && ls[j + 1].trimStart().startsWith('|')) { block.push(ln); j++; }
+        else break;
+      } else {
+        // 非 | 文本：cell 续行（仅当上一行不是终止符）
+        if (!lastWasTerminator && block.length > 0) { block.push(ln); j++; }
+        else break;
+      }
     }
-    
+    // 校验是否含分隔行
+    const sepIdx = block.findIndex(l => /^\|[-| ]+\|?$/.test(l.trim()));
+    if (sepIdx < 0) {
+      out.push(...block);
+      i = j;
+      continue;
+    }
+    // 列数
+    const sep = block[sepIdx].trim();
+    const colCount = (sep.match(/\|/g) || []).length - 1;
+    if (colCount < 1) { out.push(...block); i = j; continue; }
+    // 解析 cell
+    const rows = [];
+    let cur = [];
+    let curCellText = null;
+    for (const ln of block) {
+      if (ln === block[sepIdx]) continue; // 跳过分隔行
+      if (ln.trimStart().startsWith('|')) {
+        const c = ln.replace(/^\s*\|/, '').replace(/\|\s*$/, '');
+        if (c.trim() === '') {
+          // 终止符 → 结束当前行
+          if (curCellText !== null) { cur.push(curCellText); curCellText = null; }
+          if (cur.length > 0) { rows.push(cur); cur = []; }
+        } else {
+          if (curCellText !== null) cur.push(curCellText);
+          curCellText = c;
+        }
+      } else {
+        // 续行追加到当前 cell
+        if (curCellText !== null) curCellText += '\n' + ln;
+      }
+    }
+    if (curCellText !== null) cur.push(curCellText);
+    if (cur.length > 0) rows.push(cur);
+    // 生成标准 markdown 表格
+    if (rows.length === 0) { out.push(...block); i = j; continue; }
+    const fmt = cells => '| ' + cells.map(c => String(c).replace(/\n/g, '<br />').replace(/\|/g, '\\|').trim()).join(' | ') + ' |';
+    // 补齐列数
+    const norm = rows.map(r => {
+      while (r.length < colCount) r.push('');
+      return r.slice(0, colCount);
+    });
+    out.push(fmt(norm[0]));
+    out.push('| ' + Array(colCount).fill('---').join(' | ') + ' |');
+    for (let r = 1; r < norm.length; r++) out.push(fmt(norm[r]));
     i = j;
-    // 跳过结尾的空行
-    while (i < lines.length && !lines[i].trim()) i++;
+  }
+  return out.join('\n');
+}
+
+// ─── 段落修复：行首 → 转列表项；段落间补空行 ───
+function isListItem(s) { return /^\s*([-*+]|\d+\.)\s/.test(s); }
+
+function fixWecomParagraphs(text) {
+  const ls = text.split('\n');
+  const out = [];
+  for (let i = 0; i < ls.length; i++) {
+    out.push(ls[i]);
+    const next = ls[i + 1];
+    if (next === undefined) break;
+    const line = ls[i];
+    if (line.trim() === '' || next.trim() === '') continue;        // 已有空行
+    const lineT = line.trimStart().startsWith('|');
+    const nextT = next.trimStart().startsWith('|');
+    if (lineT && nextT) continue;                                   // 表格内部
+    if (/^#{1,6}\s/.test(line) || /^#{1,6}\s/.test(next)) continue; // 标题
+    if (isListItem(line) && isListItem(next)) continue;             // 同一列表
+    if (/^\s/.test(next) && !nextT) continue;                       // 缩进续行
+    out.push('');                                                    // 文本↔文本 / 文本↔表格 边界补空行
   }
   return out.join('\n');
 }
@@ -163,33 +222,37 @@ fs.writeFileSync(path.join(OUT_DIR, '_category_.json'), JSON.stringify({
   label: rootLabel, position: rootPos, link: { type: 'generated-index', title: tree[0]?.title || rootLabel },
 }, null, 2), 'utf8');
 
-let catIdx = 0, pageIdxGlobal = 0;
-function writeNode(nodes, parentDir, depth) {
+// 每父节点本地计数器（兄弟按文档真实顺序，解决 2.0 排在 2.1 后的问题）
+// 目录用 section-N、叶子用 page-N，避免父目录与首叶子同名导致 Docusaurus 丢页
+function writeNode(nodes, parentDir) {
+  let pos = 0;
   for (const n of nodes) {
+    pos++;
     if (n.children.length > 0) {
-      catIdx++;
-      const slug = slugify(n.title, String(catIdx));
-      const dir = path.join(parentDir, `${String(catIdx).padStart(2, '0')}-${slug}`);
+      const slug = 'section-' + pos;
+      const dir = path.join(parentDir, `${String(pos).padStart(2, '0')}-${slug}`);
       fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(path.join(dir, '_category_.json'), JSON.stringify({
-        label: n.title, position: catIdx, link: { type: 'generated-index', title: n.title },
+        label: n.title, position: pos, link: { type: 'generated-index', title: n.title },
       }, null, 2), 'utf8');
-      writeNode(n.children, dir, depth + 1);
+      writeNode(n.children, dir);
     } else {
-      pageIdxGlobal++;
-      const slug = slugify(n.title, String(pageIdxGlobal));
-      const content = getContent(n);
-      const fm = `---\nsidebar_position: ${pageIdxGlobal}\ntitle: "${n.title.replace(/"/g, '\\"')}"\ntoc: true\ntoc_max_heading_level: 6\ntoc_min_heading_level: 2\n---`;
-      const file = `${String(pageIdxGlobal).padStart(2, '0')}-${slug}.md`;
-      let safeContent = content
+      const slug = 'page-' + pos;
+      const content2 = getContent(n);
+      const fm = `---\nsidebar_position: ${pos}\ntitle: "${n.title.replace(/"/g, '\\"')}"\ntoc: true\ntoc_max_heading_level: 6\ntoc_min_heading_level: 2\n---`;
+      const file = `${String(pos).padStart(2, '0')}-${slug}.md`;
+      let safeContent = content2
         .replace(/<(?!\/?[a-zA-Z]|\!|\?)/g, '\\<')
         .replace(/\{/g, '\\{')
-        .replace(/^\*\s+/gm, '- ');
+        .replace(/^\*\s+/gm, '- ')       // * 列表 → - 列表
+        .replace(/^\s*→\s*/gm, '- ')     // 行首 → 转列表项
+        .replace(/^\s*->\s*/gm, '- ');
       safeContent = fixWecomTable(safeContent);
+      safeContent = fixWecomParagraphs(safeContent);
       fs.writeFileSync(path.join(parentDir, file), fm + '\n\n' + safeContent, 'utf8');
     }
   }
 }
 
-writeNode(tree, OUT_DIR, 1);
-console.log(`✅ 完成 → ${catIdx} 个节点`);
+writeNode(tree, OUT_DIR);
+console.log(`✅ 完成`);
