@@ -1,6 +1,6 @@
 ---
-sidebar_position: 1
-title: "Platform Overview"
+sidebar_position: 2
+title: "1.2 Platform Overview"
 toc: true
 toc_max_heading_level: 6
 toc_min_heading_level: 2
